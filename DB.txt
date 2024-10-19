@@ -1,0 +1,163 @@
+CREATE TABLE t_brand (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    shortName VARCHAR(30),
+    name VARCHAR(100),
+    image VARCHAR(255)
+);
+
+CREATE TABLE t_type (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100)
+);
+
+CREATE TABLE t_features (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100)
+);
+
+CREATE TABLE t_special_tech (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100)
+);
+
+CREATE TABLE t_product (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100),
+    ram TINYINT,
+    ssd TINYINT,
+    hdd TINYINT,
+    weight FLOAT,
+    screen FLOAT,
+    cpu VARCHAR(30),
+    isDiscount BOOLEAN,
+    price INT,
+    image VARCHAR(255),
+    description TEXT, 
+    info TEXT
+);
+
+CREATE TABLE t_product_type (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    productId INT,
+    typeId INT,
+    FOREIGN KEY (productId) REFERENCES t_product(id) ON DELETE CASCADE,
+    FOREIGN KEY (typeId) REFERENCES t_type(id) ON DELETE CASCADE
+);
+
+CREATE TABLE t_product_special_tech (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    productId INT,
+    specialtechId INT,
+    FOREIGN KEY (productId) REFERENCES t_product(id) ON DELETE CASCADE,
+    FOREIGN KEY (specialtechId) REFERENCES t_special_tech(id) ON DELETE CASCADE
+);
+
+CREATE TABLE t_product_feature (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    productId INT,
+    featureId INT,
+    FOREIGN KEY (productId) REFERENCES t_product(id) ON DELETE CASCADE,
+    FOREIGN KEY (featureId) REFERENCES t_features(id) ON DELETE CASCADE
+);
+
+CREATE TABLE t_product_discount (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    productId INT NOT NULL,
+    discountPercentage DECIMAL(5, 2),  
+    startDate DATE,                    
+    endDdate DATE,                      
+    isActive BOOLEAN DEFAULT TRUE,     
+    FOREIGN KEY (productId) REFERENCES t_product(id) ON DELETE CASCADE
+);
+
+CREATE TABLE t_users (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) UNIQUE,  
+    password VARCHAR(255) ,        
+    email VARCHAR(100) NOT NULL UNIQUE,   
+    image varchar(255),
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP  
+);
+
+CREATE TABLE t_roles (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    roleName VARCHAR(50) NOT NULL UNIQUE,  
+    description TEXT                        
+);
+
+CREATE TABLE t_user_roles (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    userId INT NOT NULL,
+    roleId INT NOT NULL,
+    FOREIGN KEY (userId) REFERENCES t_users(id) ON DELETE CASCADE,
+    FOREIGN KEY (roleId) REFERENCES t_roles(id) ON DELETE CASCADE,
+    UNIQUE (userId, roleId)  
+);
+
+CREATE TABLE t_shopping_cart (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    userId INT,
+    productId INT,
+    quantity tinyint,  
+    added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+    FOREIGN KEY (userId) REFERENCES t_users(id) ON DELETE CASCADE,
+    FOREIGN KEY (productId) REFERENCES t_product(id) ON DELETE CASCADE,
+    UNIQUE (userId, productId) 
+);
+
+CREATE TABLE t_orders (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    userId INT,
+    orderDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  
+    totalAmount DECIMAL(10, 2) NOT NULL,           
+    status VARCHAR(50) DEFAULT 'Pending',           
+    FOREIGN KEY (userId) REFERENCES t_users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE t_order_details (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    orderId INT NOT NULL,
+    productId INT NOT NULL,
+    quantity INT NOT NULL,                           
+    price DECIMAL(10, 2) NOT NULL,                    
+    FOREIGN KEY (orderId) REFERENCES t_orders(id) ON DELETE CASCADE,
+    FOREIGN KEY (productId) REFERENCES t_product(id) ON DELETE CASCADE
+);
+
+CREATE TABLE t_payments (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    orderId INT NOT NULL,
+    paymentDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+    amount DECIMAL(10, 2) NOT NULL,                    
+    paymentMethod VARCHAR(50),                       
+    status VARCHAR(50) DEFAULT 'Completed',          
+    FOREIGN KEY (orderId) REFERENCES t_orders(id) ON DELETE CASCADE
+);
+
+CREATE TABLE t_shipping (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    orderId INT NOT NULL,
+    shippingAddress VARCHAR(255) NOT NULL,          
+    shippingDate DATE,                         
+    deliveryDate DATE,                          
+    status VARCHAR(50) DEFAULT 'Pending',              
+    FOREIGN KEY (orderId) REFERENCES t_orders(id) ON DELETE CASCADE
+);
+
+CREATE TABLE t_wishlists (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    userId INT NOT NULL,
+    productId INT NOT NULL,
+    addedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,    
+    FOREIGN KEY (userId) REFERENCES t_users(id) ON DELETE CASCADE,
+    FOREIGN KEY (productId) REFERENCES t_product(id) ON DELETE CASCADE,
+    UNIQUE (userId, productId)                   
+);
+
+CREATE TABLE t_product_image(
+	id int PRIMARY KEY AUTO_INCREMENT,
+    image varchar(255),
+    productId int,
+    FOREIGN KEY(productId) REFERENCES t_product(id) ON DELETE CASCADE
+);
