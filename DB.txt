@@ -161,3 +161,19 @@ CREATE TABLE t_product_image(
     productId int,
     FOREIGN KEY(productId) REFERENCES t_product(id) ON DELETE CASCADE
 );
+
+
+ALTER TABLE t_product ADD COLUMN brandId INT;
+
+ALTER TABLE t_product 
+ADD CONSTRAINT fk_brand
+FOREIGN KEY (brandId) REFERENCES t_brand(id)
+ON DELETE CASCADE;
+
+
+ALTER TABLE t_product ADD COLUMN typeId INT;
+
+ALTER TABLE t_product 
+ADD CONSTRAINT fk_type
+FOREIGN KEY (typeId) REFERENCES t_type(id)
+ON DELETE CASCADE;
