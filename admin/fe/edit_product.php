@@ -6,7 +6,6 @@ $db = new Database();
 $brands = $db->findAll('t_brand');
 $type = $db->findAll('t_type');
 
-
 $product = $db->getOne('t_product', $id); 
 
 ?>
@@ -48,62 +47,60 @@ $product = $db->getOne('t_product', $id);
         </div>
 
         <label for="name">Tên Sản Phẩm:</label>
-        <input type="text" id="name" name="name" required>
+        <input type="text" id="name" name="name" required value="<?php echo $product['name']; ?>">
 
         <div class="specifications">
             <div class="spec-group">
                 <label for="ram">RAM (GB):</label>
-                <input type="number" id="ram" name="ram" required>
+                <input type="number" id="ram" name="ram" required value="<?php echo $product['ram']; ?>">
             </div>
             <div class="spec-group">
                 <label for="ssd">SSD (GB):</label>
-                <input type="number" id="ssd" name="ssd" required>
+                <input type="number" id="ssd" name="ssd" required value="<?php echo $product['ssd']; ?>">
             </div>
             <div class="spec-group">
                 <label for="hdd">HDD (GB):</label>
-                <input type="number" id="hdd" name="hdd" required>
+                <input type="number" id="hdd" name="hdd" required value="<?php echo $product['hdd']; ?>">
             </div>
             <div class="spec-group">
                 <label for="weight">Trọng Lượng (kg):</label>
-        <input type="number" id="weight" name="weight" step="0.01" required>
+                <input type="number" id="weight" name="weight" step="0.01" required value="<?php echo $product['weight']; ?>">
             </div>
         </div>
 
          <div class="specifications">
              <div class="spec-group">
                  <label for="screen">Kích Thước Màn Hình (inch):</label>
-        <input type="number" id="screen" name="screen" step="0.1" required>
+                <input type="number" id="screen" name="screen" step="0.1" required value="<?php echo $product['screen']; ?>">
              </div>
              <div class="spec-group">
                  <label for="cpu">CPU:</label>
-        <input type="text" id="cpu" name="cpu" required>
+                <input type="text" id="cpu" name="cpu" required value="<?php echo $product['cpu']; ?>">
              </div>
          </div>
 
         <div class="specifications">
             <div class="spec-group">
                 <label for="quantity">Số lượng:</label>
-        <input type="number" id="quantity" name="quantity" required>
-
- 
+                <input type="number" id="quantity" name="quantity" required value="<?php echo $product['quantity']; ?>">
             </div>
             <div class="spec-group">
-                       <label for="price">Giá:</label>
-        <input type="number" id="price" name="price" required>
+               <label for="price">Giá:</label>
+                <input type="number" id="price" name="price" required value="<?php echo $product['price']; ?>">
             </div>
         </div>
 
-        <label for="image">Hình Ảnh:</label>
-        <input type="file" id="image" name="image" accept="image/*" required>
+        <label for="image">Hình Ảnh (bỏ qua nếu không cập nhật ảnh):</label>
+        <input type="file" id="image" name="image" accept="image/*">
 
         <label for="description">Mô Tả:</label>
-        <textarea id="description" name="description" rows="4" required></textarea>
+        <textarea id="description" name="description" rows="4" required><?php echo $product['description']; ?></textarea>
 
         <label for="info">Thông Tin Khác:</label>
-        <textarea id="info" name="info" rows="4"></textarea>
+        <textarea id="info" name="info" rows="4"><?php echo $product['info']; ?></textarea>
 
         <div class="discount-checkbox">
-            <input type="checkbox" id="isDiscount" name="isDiscount">
+            <input type="checkbox" id="isDiscount" name="isDiscount" value="<?php echo $product['isDiscount']; ?>">
             <label for="isDiscount">Sản Phẩm Giảm Giá</label>
         </div>
 

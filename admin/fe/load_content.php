@@ -1,5 +1,6 @@
 <?php
 	$page = isset($_GET['page']) ? $_GET['page'] : 'add_product.php';
+    $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 	$allowed_pages = [
 		'add_product.php', 
 		'list_product.php', 

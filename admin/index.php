@@ -1,13 +1,3 @@
-<?php
-
-    $id = 0;
-
-    if(isset($_GET['id'])){
-        $id = $_GET['id'];
-    }
-
-
- ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +6,7 @@
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
- <script>
+ <!-- <script>
     $(document).ready(function() {
         var urlParams = new URLSearchParams(window.location.search);
         var page = urlParams.get('page') || 'add_product'; 
@@ -32,7 +22,31 @@
     function loadContent(page) {
         $('#FRAGMENT').load('fe/load_content.php?page=' + page);
     }
+</script> -->
+<script>
+    $(document).ready(function() {
+        var urlParams = new URLSearchParams(window.location.search);
+        var page = urlParams.get('page') || 'add_product'; 
+        var id = urlParams.get('id');  // Lấy id từ URL nếu có
+        loadContent(page + '.php', id);
+
+        // Xử lý sự kiện khi nhấp vào menu
+        $('.menu-item').click(function() {
+            var page = $(this).data('page') + '.php';
+            loadContent(page);
+        });
+    });
+
+    function loadContent(page, id = null) {
+        // Truyền thêm id vào URL nếu có
+        var url = 'fe/load_content.php?page=' + page;
+        if (id) {
+            url += '&id=' + id;
+        }
+        $('#FRAGMENT').load(url);
+    }
 </script>
+
 </head>
 <body>
 

@@ -39,14 +39,16 @@
                         <td><?php echo (number_format($product['price'], 0, ',', '.')); ?> VNĐ</td>
                         <td><?php echo ($product['isDiscount']) ? 'Có' : 'Không'; ?></td>
                         <td>
-                            <a href="./index.php?page=edit_product&id=<?php echo $product['id']; ?>">Sửa</a> | 
+                            <!-- <a href="./index.php?page=edit_product&id=<?php echo $product['id']; ?>">Sửa</a> |  -->
+   <a href="javascript:void(0);" onclick="loadContent('edit_product.php', <?php echo $product['id']; ?>);">Sửa</a>
+
                             <a href="be/product.php?action=delete&id=<?php echo $product['id']; ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?');">Xóa</a>
                         </td>
                     </tr>
                 <?php $i++; endforeach; ?>
             <?php else: ?>
                 <tr>
-                    <td colspan="5">Không có sản phẩm nào.</td>
+                    <td colspan="6">Không có sản phẩm nào.</td>
                 </tr>
             <?php endif; ?>
         </tbody>
