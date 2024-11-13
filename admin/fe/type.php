@@ -1,5 +1,5 @@
 <?php 
-require dirname(dirname(__DIR__)) . '/db/connect.php';
+require_once dirname(dirname(__DIR__)) . '/db/connect.php';
 
 $db = new Database();
 $types = $db->findAll('t_type',[],'id','DESC'); 
@@ -10,7 +10,7 @@ $types = $db->findAll('t_type',[],'id','DESC');
     <form action="be/type.php" method="POST">
         <div class="spec-group">
             <label for="name">Tên Loại:</label>
-            <input type="text" id="name" name="name" required placeholder="Nhập tên loại sản phẩm">
+            <input type="text" id="name" name="name" require_onced placeholder="Nhập tên loại sản phẩm">
         </div>
         <div>
             <button type="submit" name="submit">Thêm Mới</button>

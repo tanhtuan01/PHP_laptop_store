@@ -1,13 +1,22 @@
-<?php
+<?php 
 
-session_start();
-
-    require_once 'db/connect.php';
+    require_once (dirname(__DIR__)) . '/db/connect.php';
     
-    $config = require 'config/config.php';
-
     $db = new Database();
+
+    $config = require_once (dirname(__DIR__)) . '/config/config.php';
+    
+    if(!isset($_GET['q']) || !$_GET['q']){
+        header("Location: ../index.php");
+    }
+
+    $q = $_GET['q'];
+
+    $products = $db->search('t_product', ['name' => $q]);
+    
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,8 +27,8 @@ session_start();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="assets/css/base.css">
-    <link rel="stylesheet" href="assets/css/index.css">
+    <link rel="stylesheet" href="../assets/css/base.css">
+    <link rel="stylesheet" href="../assets/css/index.css">
 </head>
 
 <body>
@@ -81,89 +90,56 @@ session_start();
 
         <div class="content">
             <div class="row">
-                <h3>Trang Chủ</h3>
+                <h3>Kết quả tìm kiếm</h3>
             </div>
 
-            <div class="row" style="padding: 10px 0;">
-                <h3>Đang giảm giá</h3>
-                <span>
-                    Đang phát triển
-                </span>
-            </div>
-
-
-            <div class="row">
-                <h3>Danh Mục Laptop</h3>
-
-            </div>
-            <div class="row">
-                <div class="category">
-                    <a href="" class="item">
-                        <img src="https://cdnv2.tgdd.vn/mwg-static/common/Category/44/10/4410b95393b8e2be4065f181932cf3b9.png"
-                            alt="">
-                    </a>
-                    <a href="" class="item">
-                        <img src="https://cdnv2.tgdd.vn/mwg-static/common/Category/7b/25/7b256aa49ccc53d2fafc71aeff1da981.png"
-                            alt="">
-                    </a>
-                    <a href="" class="item">
-                        <img src="https://cdnv2.tgdd.vn/mwg-static/common/Category/5e/8e/5e8e0225b7f45864fb8c4dbf7b151533.png"
-                            alt="">
-                    </a>
-                    <a href="" class="item">
-                        <img src="https://cdnv2.tgdd.vn/mwg-static/common/Category/16/20/1620a7d46f9bd765e33d9e291567e90a.png"
-                            alt="">
-                    </a>
-                    <a href="" class="item">
-                        <img src="https://cdnv2.tgdd.vn/mwg-static/common/Category/93/b6/93b61bcd1237eb7871ba30a003e2352e.png"
-                            alt="">
-                    </a>
-                    <a href="" class="item">
-                        <img src="https://cdnv2.tgdd.vn/mwg-static/common/Category/64/7a/647a7e93e952189ac77d9b26a9c0637e.png"
-                            alt="">
-                    </a>
-                </div>
-            </div>
-
-            <div class="filter">
-
-                <div class="row">
-                    <!-- <div class="ifilter">
-                        <a class="item">
-                            <i class="fa-solid fa-filter"></i>
-                            &nbsp;
-                            Lọc
-                        </a>
-                    </div> -->
-
-                </div>
-
-
-
-                <div class="row sort">
-                    Sắp xếp theo: <ul>
-                        <li>
-                            <a href="">Nổi bật</a>
-                        </li>
-                        <li>
-                            <a href="">Bán chạy</a>
-                        </li>
-                        <li>
-                            <a href="">Giảm giá</a>
-                        </li>
-                        <li>
-                            <a href="">Mới</a>
-                        </li>
-                        <li>
-                            <a href="">Giá</a>
-                        </li>
-                    </ul>
-                </div>
+            <div class="products row">
+                <?php if ($products): ?>
+                <?php $i = 1; foreach ($products as $product): ?>
+                <a class="product" href="views/product.php?id=<?php echo $product['id']; ?>">
+                    <div class="box">
+                        <div class="image">
+                            <img src="https://cdn.tgdd.vn/Products/Images/44/311178/asus-vivobook-go-15-e1504fa-r5-nj776w-thumb-600x600.jpg"
+                                alt="">
+                        </div>
+                        <div class="gift">
+                            <span>
+                                Tặng Office
+                            </span>
+                        </div>
+                        <h3 class="name">
+                            <?php echo $product['name']; ?>
+                        </h3>
+                        <div class="hardware">
+                            <span class="tag">RAM<?php echo $product['ram']; ?>GB</span>
+                            <span class="tag">SSD<?php echo $product['ssd']; ?>GB</span>
+                        </div>
+                        <strong class="price">
+                            <?php echo $product['price'] . "đ"; ?>
+                        </strong>
+                        <!-- <div class="box-p">
+                            <p class="price-old">14.490.000₫</p>
+                            <div class="percent">9%</div>
+                        </div> -->
+                        <!-- Đang phát triển -->
+                        <!-- <p class="item-gift">
+                            Quà <b>1.090.000₫</b>
+                        </p> -->
+                        <div class="add-to-cart">
+                            <button title="Xem sản phẩm" class="view"><i
+                                    class="fa-regular fa-eye"></i></i>&nbsp;</button>
+                            <button title="Thêm vào giỏ hàng" class="addtocart"><i
+                                    class="fa-solid fa-cart-arrow-down"></i>&nbsp;</button>
+                        </div>
+                    </div>
+                </a>
+                <?php $i++; endforeach; ?>
+                <?php else: ?>
+                <p>Không có sản phẩm nào</p>
+                <?php endif; ?>
 
             </div>
 
-
-            <?php require_once 'views/list_product.php'; ?>
 
             <div class="footer">
                 <h1 style="text-align:center">FOOTER</h1>

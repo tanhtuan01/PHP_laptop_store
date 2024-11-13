@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
- <!-- <script>
+    <!-- <script>
     $(document).ready(function() {
         var urlParams = new URLSearchParams(window.location.search);
         var page = urlParams.get('page') || 'add_product'; 
@@ -23,11 +24,11 @@
         $('#FRAGMENT').load('fe/load_content.php?page=' + page);
     }
 </script> -->
-<script>
+    <script>
     $(document).ready(function() {
         var urlParams = new URLSearchParams(window.location.search);
-        var page = urlParams.get('page') || 'add_product'; 
-        var id = urlParams.get('id');  // Lấy id từ URL nếu có
+        var page = urlParams.get('page') || 'add_product';
+        var id = urlParams.get('id'); // Lấy id từ URL nếu có
         loadContent(page + '.php', id);
 
         // Xử lý sự kiện khi nhấp vào menu
@@ -45,14 +46,18 @@
         }
         $('#FRAGMENT').load(url);
     }
-</script>
+    </script>
 
 </head>
+
 <body>
 
     <div class="sidebar">
         <h2>Admin Dashboard</h2>
         <ul>
+            <li class="disable-item">Thống kê</li>
+            <li class="menu-item" data-page="revenue">Doanh thu</li>
+            <li class="menu-item" data-page="statistic">Biểu đồ thống kê</li>
             <li class="disable-item">Hãng & Loại</li>
             <li class="menu-item" data-page="brand">Thêm Hãng Laptop</li>
             <li class="menu-item" data-page="type">Thêm Loại Laptop</li>
@@ -68,15 +73,16 @@
         <div class="header">
             <h1>Laptop Store</h1>
         </div>
-       <?php if (isset($_GET['message']) && isset($_GET['type'])): ?>
-    <div class="alert <?php echo htmlspecialchars($_GET['type']); ?>">
-        <span class="alert-icon">✔️</span> 
-        <?php echo htmlspecialchars($_GET['message']); ?>
-    </div>
-<?php endif; ?>
+        <?php if (isset($_GET['message']) && isset($_GET['type'])): ?>
+        <div class="alert <?php echo htmlspecialchars($_GET['type']); ?>">
+            <span class="alert-icon">✔️</span>
+            <?php echo htmlspecialchars($_GET['message']); ?>
+        </div>
+        <?php endif; ?>
         <div id="FRAGMENT"></div>
     </div>
 
     <script src="../assets/js/main.js"></script>
 </body>
+
 </html>

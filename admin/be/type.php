@@ -1,6 +1,6 @@
 <?php 
 
-	require dirname(dirname(__DIR__)) . '/db/connect.php';
+	require_once dirname(dirname(__DIR__)) . '/db/connect.php';
 
 	$db = new Database();
 	

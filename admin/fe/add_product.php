@@ -1,6 +1,6 @@
 
 <?php 
-    require dirname(dirname(__DIR__)) . '/db/connect.php';
+    require_once dirname(dirname(__DIR__)) . '/db/connect.php';
 
     $db = new Database();
 
@@ -46,24 +46,24 @@
         </div>
 
         <label for="name">Tên Sản Phẩm:</label>
-        <input type="text" id="name" name="name" required>
+        <input type="text" id="name" name="name" require_onced>
 
         <div class="specifications">
             <div class="spec-group">
                 <label for="ram">RAM (GB):</label>
-                <input type="number" id="ram" name="ram" required>
+                <input type="number" id="ram" name="ram" require_onced>
             </div>
             <div class="spec-group">
                 <label for="ssd">SSD (GB):</label>
-                <input type="number" id="ssd" name="ssd" required>
+                <input type="number" id="ssd" name="ssd" require_onced>
             </div>
             <div class="spec-group">
                 <label for="hdd">HDD (GB):</label>
-                <input type="number" id="hdd" name="hdd" required>
+                <input type="number" id="hdd" name="hdd" require_onced>
             </div>
             <div class="spec-group">
                 <label for="weight">Trọng Lượng (kg):</label>
-        <input type="number" id="weight" name="weight" step="0.01" required>
+        <input type="number" id="weight" name="weight" step="0.01" require_onced>
             </div>
         </div>
 
@@ -71,11 +71,11 @@
          <div class="specifications">
              <div class="spec-group">
                  <label for="screen">Kích Thước Màn Hình (inch):</label>
-        <input type="number" id="screen" name="screen" step="0.1" required>
+        <input type="number" id="screen" name="screen" step="0.1" require_onced>
              </div>
              <div class="spec-group">
                  <label for="cpu">CPU:</label>
-        <input type="text" id="cpu" name="cpu" required>
+        <input type="text" id="cpu" name="cpu" require_onced>
              </div>
          </div>
 
@@ -86,21 +86,21 @@
         <div class="specifications">
             <div class="spec-group">
                 <label for="quantity">Số lượng:</label>
-        <input type="number" id="quantity" name="quantity" required>
+        <input type="number" id="quantity" name="quantity" require_onced>
 
  
             </div>
             <div class="spec-group">
                        <label for="price">Giá:</label>
-        <input type="number" id="price" name="price" required>
+        <input type="number" id="price" name="price" require_onced>
             </div>
         </div>
 
         <label for="image">Hình Ảnh:</label>
-        <input type="file" id="image" name="image" accept="image/*" required>
+        <input type="file" id="image" name="image" accept="image/*" require_onced>
 
         <label for="description">Mô Tả:</label>
-        <textarea id="description" name="description" rows="4" required></textarea>
+        <textarea id="description" name="description" rows="4" require_onced></textarea>
 
         <label for="info">Thông Tin Khác:</label>
         <textarea id="info" name="info" rows="4"></textarea>
