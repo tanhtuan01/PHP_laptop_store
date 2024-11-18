@@ -10,8 +10,6 @@
     $orderDb = new Order();
 ?>
 
-
-
 <div id="mainContent">
     <h2>Đơn Hàng</h2>
 

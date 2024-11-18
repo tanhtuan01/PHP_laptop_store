@@ -1,35 +1,33 @@
 <?php
 
-    session_start();
+session_start();
 
-    $config = require_once (dirname(__DIR__)) . '/config/config.php';
+$config = require_once (dirname(__DIR__)) . '/config/config.php';
 
-    require_once (dirname(__DIR__)) . '/db/connect.php';
-    
-    $db = new Database();
-    
-    if(!isset($_GET['id']) || !$_GET['id']){
-        header("Location: ../index.php");
-    }
+require_once (dirname(__DIR__)) . '/db/connect.php';
 
-    $id = $_GET['id'];
+$db = new Database();
 
-    $product = $db->getOne('t_product', $id);
-        if(!$_SESSION['user']){
-            header('Location: ../index.php');
-        }
+if (!isset($_GET['id']) || !$_GET['id']) {
+    header("Location: ../index.php");
+}
 
-        // Check exists user cart
-        $conditions = [
-            'userId' => $_SESSION['user']['id'],
-            'productId' => $id
-        ];
+$id = $_GET['id'];
 
-        $cart = $db->getOneByColumns('t_shopping_cart', $conditions);
+$product = $db->getOne('t_product', $id);
+if (isset($_SESSION['user'])) {
+    // header('Location: ../index.php');
+    // Check exists user cart
+    $conditions = [
+        'userId' => $_SESSION['user']['id'],
+        'productId' => $id
+    ];
 
-        if(isset($_GET['action']) && $_GET['action'] === 'add-to-cart'){
-        
-        if(!$cart || !$cart['quantity']){
+    $cart = $db->getOneByColumns('t_shopping_cart', $conditions);
+
+    if (isset($_GET['action']) && $_GET['action'] === 'add-to-cart') {
+
+        if (!$cart || !$cart['quantity']) {
             // add new
             $data = [
                 'quantity' => 1,
@@ -38,7 +36,7 @@
             ];
             $db->insert('t_shopping_cart', $data);
             $cart = $db->getOneByColumns('t_shopping_cart', $conditions);
-        }else{
+        } else {
             // exist cart
             $quantity = $cart['quantity'];
             $data = [
@@ -50,16 +48,22 @@
                 'userId' => $_SESSION['user']['id'],
                 'productId' => $id
             ];
-            if($db->update('t_shopping_cart', $data, $conditions)){
+            if ($db->update('t_shopping_cart', $data, $conditions)) {
                 echo "Thêm vào giỏ hàng thành công";
                 $cart = $db->getOneByColumns('t_shopping_cart', $conditions);
-            }else{
+            } else {
                 echo "Thêm vào giỏ hàng thất bại";
             }
-            
         }
-
+    } else {
+        //add-to-wishlist
     }
+} else {
+    if (isset($_GET['action']) && ($_GET['action'] === 'add-to-cart' || $_GET['action'] === 'add-to-wishlist')) {
+        header("Location: ../login.php");
+    }
+}
+
 
 ?>
 
@@ -67,44 +71,48 @@
 
 <!-- css tmp declare here -->
 <style>
-.view-product {
-    display: flex;
-    width: 800px;
-    margin: auto
-}
+    .view-product {
+        display: flex;
+        width: 800px;
+        margin: auto
+    }
 
-.view-product .left {
-    margin-right: 10px;
-}
+    .view-product .left {
+        margin-right: 10px;
+    }
 
-.view-product .left img {
-    width: 300px;
-    height: 300px;
-}
+    .view-product .left img {
+        width: 300px;
+        height: 300px;
+    }
 </style>
 <h2>Xem sản phẩm </h2>
 
 <a href="../index.php">Trang chủ </a>
-<?php 
-    if($_SESSION['user'] && $cart){
+<?php
+if (isset($_SESSION['user']) && $cart) {
 ?>
-<div>
-    <a href="../user/cart.php">Giỏ hàng (<span><?php echo $cart['quantity']; ?></span>)</a>
-</div>
+    <div>
+        <a href="../user/cart.php">Giỏ hàng (<span><?php echo $cart['quantity']; ?></span>)</a>
+    </div>
 
+<?php } else { ?>
+    <div>
+        <a href="#!">Giỏ hàng (<span>0</span>)</a>
+    </div>
 <?php } ?>
 
 <div class="view-product">
 
     <div class="left">
-        <img src="<?php echo $config['HOST']. $config['PROJECT_NAME'] . '/assets/images/products/' . $product['image']; ?>"
+        <img src="<?php echo $config['HOST'] . $config['PROJECT_NAME'] . '/assets/images/products/' . $product['image']; ?>"
             alt="">
     </div>
 
     <div class="right">
         <h2> <?php echo $product['name']; ?></h2>
         <p>
-            CPU: <?php echo $product['cpu'] ; ?>
+            CPU: <?php echo $product['cpu']; ?>
         </p>
         <p>
             RAM: <?php echo $product['ram'] . "GB"; ?>
@@ -122,7 +130,7 @@
             <?php echo $product['price'] . "đ"; ?>
         </p>
         <a href='product.php?id=<?php echo $product['id']; ?>&action=add-to-cart'>Thêm vào giỏ hàng</a>
-        <a href=''>Thêm vào yêu thích</a>
+        <a href='product.php?id=<?php echo $product['id']; ?>&action=add-to-wishlist'>Thêm vào yêu thích</a>
 
     </div>
 </div>

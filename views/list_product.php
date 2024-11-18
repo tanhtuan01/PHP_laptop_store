@@ -1,17 +1,17 @@
 <?php
 
-    $products = $db->findAll('t_product')
+$products = $db->findAll('t_product');
 
 ?>
 
 <div class="products row">
     <?php if ($products): ?>
-    <?php $i = 1; foreach ($products as $product): ?>
+    <?php $i = 1;
+        foreach ($products as $product): ?>
     <a class="product" href="views/product.php?id=<?php echo $product['id']; ?>">
         <div class="box">
             <div class="image">
-                <img src="https://cdn.tgdd.vn/Products/Images/44/311178/asus-vivobook-go-15-e1504fa-r5-nj776w-thumb-600x600.jpg"
-                    alt="">
+                <img src="<?php echo $config['BASE_URL'] . '/assets/images/products/' . $product['image']; ?>" alt="">
             </div>
             <div class="gift">
                 <span>
@@ -26,7 +26,7 @@
                 <span class="tag">SSD<?php echo $product['ssd']; ?>GB</span>
             </div>
             <strong class="price">
-                <?php echo $product['price'] . "đ"; ?>
+                <?php echo (number_format($product['price'], 0, ',', '.')) . "đ"; ?>
             </strong>
             <!-- <div class="box-p">
                 <p class="price-old">14.490.000₫</p>
@@ -43,7 +43,8 @@
             </div>
         </div>
     </a>
-    <?php $i++; endforeach; ?>
+    <?php $i++;
+        endforeach; ?>
     <?php else: ?>
     <p>Không có sản phẩm nào</p>
     <?php endif; ?>
