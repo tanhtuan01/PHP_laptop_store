@@ -86,14 +86,35 @@
 .content .category a.item{
 	margin-left: 5px;
 	width: 200px;
-	max-height: 47px;
-	height: 47px;
+	max-height: 100px;
+	height: 100px;
 /* 		background: #FFE14C; */
-background: rgba(242, 244, 247, 1);
-	 border-radius: 8px;
-	 padding: 10px 20px;
-	 transition: all .3s ease-in;
+	background: rgba(242, 244, 247, 1);
+	border-radius: 8px;
+	padding: 10px 20px;
+	transition: all .3s ease-in;
+	 position: relative;
+    display: flex;
+    align-items: center;  
+    justify-content: center; 
+    overflow: hidden;
+}
 
+.content .category a.item p.brand-name {
+    position: absolute;
+    width: 100%;
+    background-color: rgba(75, 0, 130, 0.6); /* Nền mờ với độ trong suốt */
+    color: white;
+    padding: 10px;
+    text-align: center;
+    opacity: 0; /* Ẩn phần tử khi chưa hover */
+    transition: opacity 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    z-index: 1; /* Đảm bảo brand-name không bị che khuất */
+}
+
+.content .category a.item:hover p.brand-name {
+    opacity: 1; /* Hiển thị phần tử khi hover */
+    background-color: rgba(255, 223, 0, 0.8);/* Làm nền đậm hơn khi hover */
 }
 
 .content .category a.item:hover{
@@ -113,8 +134,6 @@ background: rgba(242, 244, 247, 1);
 	scale: 1.2;
 }
 
-
-
 .content .sort ul li{
 	display: inline-block;
 	list-style-type: circle;
@@ -125,7 +144,6 @@ background: rgba(242, 244, 247, 1);
 	align-items: center!important;
 	justify-content: center!important;
 }
-
 
 .content .sort,.content .sort ul li a{
 	color: rgba(71, 84, 103, 1);
@@ -144,17 +162,46 @@ background: rgba(242, 244, 247, 1);
 	border: 1px solid rgba(234, 236, 240, 1);
     border-radius: 8px;
     margin: 5px 10px 5px 0;
-     flex: 0 0 calc(20% - 10px); /* 20% cho mỗi sản phẩm trừ 10px cho khoảng cách */
-            margin: 5px; /* Khoảng cách giữa các sản phẩm */
-            padding: 10px;
-            box-sizing: border-box; /* Đảm bảo padding không làm tăng kích thước */
+	flex: 0 0 calc(20% - 10px); /* 20% cho mỗi sản phẩm trừ 10px cho khoảng cách */
+	margin: 5px; /* Khoảng cách giữa các sản phẩm */
+	padding: 10px;
+	box-sizing: border-box; /* Đảm bảo padding không làm tăng kích thước */
+	position: relative;
+}
+
+.content .products a.product .tag-discount{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 45px;
+	background-color: orange;
+	z-index: 99999;
+	display: inline-block; 
+    background-color: #FF6F00;
+    color: white; 
+    font-weight: bold; 
+    padding: 8px 0px; 
+    border-radius: 0 0 20px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-size: 14px; 
+    transition: all 0.3s ease; 
+}
+
+.content .products a.product .tag-discount div {
+    margin: 0; 
+}
+
+.content .products a.product .tag-discount:hover {
+    background-color: #FF8F00; 
+    transform: translateY(-2px); 
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); 
 }
 
 .content .products a.product:hover{
-	    -webkit-box-shadow: 0 2px 12px rgba(0, 0, 0, .12);
+	-webkit-box-shadow: 0 2px 12px rgba(0, 0, 0, .12);
     -moz-box-shadow: 0 2px 12px rgba(0, 0, 0, .12);
     box-shadow: 0 2px 12px rgba(0, 0, 0, .12);
-
 }
 
 .content .products a.product .box {
@@ -166,7 +213,6 @@ background: rgba(242, 244, 247, 1);
 .product{
     font-size: 14px;
 }
-
 
 .product .box .image{
 	width: 100%;
@@ -195,7 +241,7 @@ background: rgba(242, 244, 247, 1);
 }
 
 .tag{
-	    background: #f2f4f7;
+	background: #f2f4f7;
     border: 0;
     color: #667085;
     border-radius: 2px;
@@ -237,10 +283,10 @@ background: rgba(242, 244, 247, 1);
 }
 
 .product .add-to-cart{
-text-align: center;
-margin-top: 10px;
-display: flex;
-justify-content: center;
+	text-align: center;
+	margin-top: 10px;
+	display: flex;
+	justify-content: center;
 }
 
 .product .add-to-cart button{
@@ -259,13 +305,13 @@ justify-content: center;
 }
 
 .product .box .gift{
-	    background: linear-gradient(to right, #faab08, #d42611);
-	    border-radius: 20px;
+	background: linear-gradient(to right, #faab08, #d42611);
+	border-radius: 20px;
     display: inline-block;
     overflow: hidden;
     max-width: 100%;
     padding-right: 8px;
-margin-bottom: 5px;
+	margin-bottom: 5px;
 }
 
 .product .box .gift span{
@@ -282,7 +328,6 @@ margin-bottom: 5px;
     -webkit-line-clamp: 2;
     text-transform: uppercase;
 }
-
 
 /* Footer */
 .footer {
@@ -342,3 +387,38 @@ margin-bottom: 5px;
 }
 
 /* End Footer */
+
+
+/* Slider */
+.slider-container{
+	width: 70%;
+	height: 300px;
+}
+
+.slider-container img{
+	width: 100%;
+	height: 300px;
+	padding: 10px;
+}
+
+ul.slick-dots{
+	position: absolute;
+	bottom: 10px;
+}
+
+ul.slick-dots li{
+	background-color: white;
+	border-radius: 50%;
+	margin: 1px;
+	width: 10px;
+	height: 10px;
+}
+
+ul.slick-dots li button{
+	display: none;
+}
+
+ul.slick-dots li.slick-active{
+	background-color: orange;
+}
+/* End Slider */

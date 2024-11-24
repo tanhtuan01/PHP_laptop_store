@@ -1,10 +1,10 @@
-<?php 
+<?php
 
-	require_once dirname(dirname(__DIR__)) . '/db/connect.php';
+require_once dirname(dirname(__DIR__)) . '/db/connect.php';
 
-    $targePath = dirname(dirname(__DIR__)) . '/assets/images/products/';
+$targePath = dirname(dirname(__DIR__)) . '/assets/images/products/';
 
-    $db = new Database();
+$db = new Database();
 
 // Kiểm tra nếu thư mục tồn tại
 if (!is_dir($targePath)) {
@@ -25,13 +25,15 @@ if ($_POST && isset($_POST['submit'])) {
     $description = $_POST['description'];
     $info = $_POST['info'];
     $isDiscount = isset($_POST['isDiscount']) ? true : false;
+    $percent = isset($_POST['discountPercent']) ? $_POST['discountPercent'] : 0;
+    $newPrice = isset($_POST['newPrice']) ? $_POST['newPrice'] : 0;
 
     $FILE = $_FILES['image'];
-    $fileName = $_FILES['image']['name'];	
+    $fileName = $_FILES['image']['name'];
     $fileTmp = $_FILES['image']['tmp_name'];
 
-    $fileExt = pathinfo($fileName, PATHINFO_EXTENSION); 
-    $newFileName = uniqid('product_', true) . '.' . $fileExt; 
+    $fileExt = pathinfo($fileName, PATHINFO_EXTENSION);
+    $newFileName = uniqid('product_', true) . '.' . $fileExt;
 
     $file_path = $targePath . $newFileName;
 
@@ -51,33 +53,31 @@ if ($_POST && isset($_POST['submit'])) {
         'image' => $newFileName,
         'brandId' => $_POST['brand'],
         'typeId' => $_POST['type'],
+        'percent' => $percent,
+        'newPrice' => $newPrice,
+        'sold' => 0
     ];
 
     if ($db->insert('t_product', $data)) {
-     
-    move_uploaded_file($fileTmp, $file_path);
-   header("Location: ../index.php?page=add_product&type=success&message=Thêm thành công"); 
-    exit(); 
-    }else{
-        header("Location: ../index.php?page=add_product&type=error&message=Thêm thất bại"); 
-    exit(); 
-    }
 
-	} 
-    else if(isset($_GET['action']) && $_GET['action'] === 'delete'){
-
-         if($db->delete('t_product',$_GET['id'])){
-             header("Location: ../index.php?page=list_product&type=success&message=Xóa thành công");
+        move_uploaded_file($fileTmp, $file_path);
+        header("Location: ../index.php?page=add_product&type=success&message=Thêm thành công");
         exit();
-         }else{
-            header("Location: ../index.php?page=list_product&type=error&message=Xóa thất bại");
+    } else {
+        header("Location: ../index.php?page=add_product&type=error&message=Thêm thất bại");
         exit();
-         }
     }
+} else if (isset($_GET['action']) && $_GET['action'] === 'delete') {
 
-    else {
-        header("Location: ../index.php"); 
+    if ($db->delete('t_product', $_GET['id'])) {
+        header("Location: ../index.php?page=list_product&type=success&message=Xóa thành công");
+        exit();
+    } else {
+        header("Location: ../index.php?page=list_product&type=error&message=Xóa thất bại");
+        exit();
+    }
+} else {
+    header("Location: ../index.php");
 
-	    exit(); 
-	}
-?>
+    exit();
+}

@@ -24,24 +24,21 @@ $db = new Database();
 
         <?php require_once "views/header.php"; ?>
 
+
         <div class="content">
             <div class="row">
-                <h3>Trang Chủ</h3>
+                <?php require_once "views/slider.php"; ?>
             </div>
-
-            <div class="row" style="padding: 10px 0;">
-                <h3>Đang giảm giá</h3>
-                <span>
-                    Đang phát triển
-                </span>
-            </div>
-
 
             <div class="row">
                 <h3>Danh Mục Laptop</h3>
                 <?php require_once 'views/list_brand.php'; ?>
             </div>
 
+            <div class="row" style="padding: 10px 0;">
+                <h3>Đang giảm giá</h3>
+            </div>
+            <?php require_once 'views/discounting_product.php'; ?>
 
             <div class="filter">
 
@@ -55,8 +52,6 @@ $db = new Database();
                     </div> -->
 
                 </div>
-
-
 
                 <div class="row sort">
                     Sắp xếp theo: <ul>
@@ -80,12 +75,31 @@ $db = new Database();
 
             </div>
 
-
             <?php require_once 'views/list_product.php'; ?>
             <?php require_once 'views/footer.php'; ?>
 
         </div>
 
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js">
+        </script>
+
+        <script>
+        $(document).ready(function() {
+            $('.slider').slick({
+                dots: true,
+                infinite: true,
+                // speed: 500,
+                fade: true,
+                cssEase: 'linear',
+                // autoplay: true,
+                arrows: true,
+                prevArrow: "<button type='button' class='slick-prev pull-left'><i class='fa fa-angle-left' aria-hidden='true'></i></button>",
+                nextArrow: "<button type='button' class='slick-next pull-right'><i class='fa fa-angle-right' aria-hidden='true'></i></button>"
+            });
+        });
+        </script>
 </body>
 
 </html>

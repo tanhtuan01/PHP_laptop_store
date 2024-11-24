@@ -20,28 +20,30 @@
               </div>
               <div class="login">
                   <?php if (isset($_SESSION['user']) && !empty($_SESSION['user'])) { ?>
-                  <a href='<?php echo $config['BASE_URL'] . "/user/profile.php"; ?>'><i class="fa-solid fa-user"></i>
-                      <?php echo $_SESSION['user']['username']; ?></a>
+                      <a href='<?php echo $config['BASE_URL'] . "/user/profile.php"; ?>'>
+                          👤
+                          <?php echo $_SESSION['user']['username']; ?></a>
                   <?php } else { ?>
-                  <a href="<?php echo $config['BASE_URL'] . "/login.php"; ?>"><i class="fa-solid fa-user"></i>
-                      Đăng nhập</a>
+                      <a href="<?php echo $config['BASE_URL'] . "/login.php"; ?>">
+                          👤
+                          Đăng nhập</a>
                   <?php } ?>
               </div>
 
               <div class="cart">
                   <?php if (isset($_SESSION['user']) && !empty($_SESSION['user'])) { ?>
-                  <a href="<?php echo $config['BASE_URL'] . "/user/cart.php"; ?>">
-                      <i class="fa-solid fa-cart-shopping"></i>
-                      Giỏ hàng
-                  </a>
+                      <a href="<?php echo $config['BASE_URL'] . "/user/cart.php"; ?>">
+                          🛒
+                          Giỏ hàng
+                      </a>
                   <?php } else { ?> <a href="<?php echo $config['BASE_URL'] . "/login.php"; ?>">
-                      <i class="fa-solid fa-cart-shopping"></i>
-                      (0)
-                  </a> <?php } ?>
+                          🛒
+                          (0)
+                      </a> <?php } ?>
               </div>
               <div class="address">
                   <a href="">
-                      <i class="fa-solid fa-location-dot"></i>
+                      📍
                       Hà Nội
                   </a>
                   <i class="fa-solid fa-chevron-right sub-icon"></i>

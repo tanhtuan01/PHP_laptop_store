@@ -76,6 +76,8 @@ CREATE TABLE t_users (
     username VARCHAR(50) UNIQUE,  
     password VARCHAR(255) ,        
     email VARCHAR(100) NOT NULL UNIQUE,   
+    phone VARCHAR(11),
+    address VARCHAR(120),
     image varchar(255),
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
     updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP  

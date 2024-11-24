@@ -14,6 +14,6 @@ function clearMessageParameter() {
     }
 
     // Gọi hàm khi tải trang
-    window.onload = function() {
-        clearMessageParameter();
-    };
+window.onload = function() {
+    clearMessageParameter();
+};

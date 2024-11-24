@@ -1,6 +1,6 @@
 <?php
 
-$products = $db->findAll('t_product', ['isDiscount' => false], 'id', 'DESC');
+$products = $db->findAll('t_product', ['isDiscount' => true], 'id', 'DESC');
 
 ?>
 
@@ -9,6 +9,11 @@ $products = $db->findAll('t_product', ['isDiscount' => false], 'id', 'DESC');
         <?php $i = 1;
         foreach ($products as $product): ?>
             <a class="product" href="views/product.php?id=<?php echo $product['id']; ?>">
+                <div class="tag-discount">
+                    <div>
+                        Giảm giá <br> <?php echo $product['percent']; ?>%
+                    </div>
+                </div>
                 <div class="box">
                     <div class="image">
                         <img src="<?php echo $config['BASE_URL'] . '/assets/images/products/' . $product['image']; ?>" alt="">
@@ -26,12 +31,12 @@ $products = $db->findAll('t_product', ['isDiscount' => false], 'id', 'DESC');
                         <span class="tag">SSD<?php echo $product['ssd']; ?>GB</span>
                     </div>
                     <strong class="price">
-                        <?php echo (number_format($product['price'], 0, ',', '.')) . "đ"; ?>
+                        <?php echo (number_format($product['newPrice'], 0, ',', '.')) . "đ"; ?>
                     </strong>
-                    <!-- <div class="box-p">
-                <p class="price-old">14.490.000₫</p>
-                <div class="percent">9%</div>
-            </div> -->
+                    <div class="box-p">
+                        <p class="price-old"> <?php echo (number_format($product['price'], 0, ',', '.')) . "đ"; ?></p>
+                        <div class="percent"><b>-<?php echo $product['percent'] ?>%</b></div>
+                    </div>
                     <!-- Đang phát triển -->
                     <!-- <p class="item-gift">
                 Quà <b>1.090.000₫</b>

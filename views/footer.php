@@ -5,7 +5,7 @@
             <p>...</p>
         </div>
         <div class="footer-middle">
-            <h3>Quick Links</h3>
+            <h3>Đường dẫn</h3>
             <ul>
                 <li><a href="#">Trang chủ</a></li>
                 <li><a href="#">Sản phẩm</a></li>

@@ -1,57 +1,95 @@
-<?php 
-    require_once dirname(dirname(__DIR__)) . '/db/connect.php';
+<?php
+require_once dirname(dirname(__DIR__)) . '/db/connect.php';
+require_once dirname(dirname(__DIR__)) . '/db/order.php';
 
-    $db = new Database();
+$config = require_once dirname(dirname(__DIR__)) . '/config/config.php';
 
-    require_once dirname(dirname(__DIR__)) . '/db/order.php';
-    
-    $orderDb = new Order();
+$db = new Database();
+$orderDb = new Order();
 
-    $order = $db->getOne('t_orders', $id);
+$id = $_GET['id'] ?? null;
+if (!$id) {
+    die('Đơn hàng không hợp lệ');
+}
 
-    $orderDetails = $orderDb->findOrderDetailsByOrderId($id);
+$order = $db->getOne('t_orders', $id);
+if (!$order) {
+    die('Không tìm thấy đơn hàng');
+}
 
-
+$orderDetails = $orderDb->findOrderDetailsByOrderId($id);
 ?>
 
-<h3>Chi tiết đơn đặt hàng</h3>
+<!DOCTYPE html>
+<html lang="vi">
 
-<p>
-    Trạng thái: <?php echo $orderDb->formatOrderStatus($order['status']); ?>
-</p>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết đơn hàng</title>
+    <!-- Sử dụng Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
 
-<table style="width: 100%; text-align: center" cellpadding="10" cellspacing="0" border="1">
+<body>
+    <div class="container mt-5">
+        <h3 class="text-center mb-4">Chi tiết đơn hàng</h3>
 
-    <tr>
-        <th>STT</th>
-        <th>Sản phẩm</th>
-        <th>Số lượng</th>
-        <th>Giá tiền</th>
-        <th>Thành tiền </th>
-    </tr>
+        <div class="mb-3">
+            <p><strong>Trạng thái:</strong>
+                <?php echo ($orderDb->formatOrderStatus($order['status'])); ?></p>
+        </div>
 
-    <?php if($orderDetails){ ?>
-    <?php $i = 1; foreach ($orderDetails as $orderDetail): ?>
-    <tr>
-        <td><?php echo $i; ?></td>
-        <td><?php echo $orderDetail['productName']; ?></td>
-        <td><?php echo $orderDetail['quantity']; ?></td>
-        <td><?php echo (number_format($orderDetail['price'], 0, ',', '.')); ?> VNĐ</td>
-        <td><?php echo (number_format($orderDetail['totalPrice'], 0, ',', '.')); ?> VNĐ</td>
-    </tr>
-    <?php $i++; endforeach; } ?>
+        <table class="table table-bordered text-center">
+            <thead class="table-light">
+                <tr>
+                    <th>STT</th>
+                    <th>Sản phẩm</th>
+                    <th>Số lượng</th>
+                    <th>Giá tiền</th>
+                    <th>Thành tiền</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if ($orderDetails) { ?>
+                    <?php $i = 1;
+                    foreach ($orderDetails as $orderDetail): ?>
+                        <tr>
+                            <td><?php echo $i; ?></td>
+                            <td><?php echo htmlspecialchars($orderDetail['productName']); ?></td>
+                            <td><?php echo $orderDetail['quantity']; ?></td>
+                            <td><?php echo number_format($orderDetail['price'], 0, ',', '.'); ?> VNĐ</td>
+                            <td><?php echo number_format($orderDetail['totalPrice'], 0, ',', '.'); ?> VNĐ</td>
+                        </tr>
+                    <?php $i++;
+                    endforeach; ?>
+                <?php } else { ?>
+                    <tr>
+                        <td colspan="5">Không có chi tiết đơn hàng</td>
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </table>
 
-</table>
+        <div class="d-flex justify-content-between">
+            <a href="<?php echo $config['BASE_URL'] . '/admin/index.php?page=orders'; ?>" class="btn btn-secondary">Danh
+                sách đơn hàng</a>
 
-<?php if($order['status'] != 'processing'){ ?>
+            <div>
+                <?php if ($order['status'] != 'processing' && $order['status'] != 'completed') { ?>
+                    <a href="be/order.php?orderId=<?php echo $id; ?>&action=processing" class="btn btn-primary">Xác nhận đơn
+                        hàng</a>
+                <?php } ?>
 
-<a href="be/order.php?orderId=<?php echo $id; ?>&action=processing">Xác nhận đơn hàng</a>
+                <?php if ($order['status'] == 'processing') { ?>
+                    <a href="be/order.php?orderId=<?php echo $id; ?>&action=completed" class="btn btn-success">Hoàn thành
+                        đơn hàng</a>
+                <?php } ?>
+            </div>
+        </div>
+    </div>
 
-<?php } ?>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 
-
-<?php if($order['status'] == 'processing'){ ?>
-
-<a href="be/order.php?orderId=<?php echo $id; ?>&action=completed">Hoàn thành đơn hàng</a>
-
-<?php } ?>
+</html>
