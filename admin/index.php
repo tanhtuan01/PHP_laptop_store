@@ -37,27 +37,27 @@ if (!isset($_SESSION['user'])) {
     }
 </script> -->
     <script>
-        $(document).ready(function() {
-            var urlParams = new URLSearchParams(window.location.search);
-            var page = urlParams.get('page') || 'add_product';
-            var id = urlParams.get('id'); // Lấy id từ URL nếu có
-            loadContent(page + '.php', id);
+    $(document).ready(function() {
+        var urlParams = new URLSearchParams(window.location.search);
+        var page = urlParams.get('page') || 'add_product';
+        var id = urlParams.get('id'); // Lấy id từ URL nếu có
+        loadContent(page + '.php', id);
 
-            // Xử lý sự kiện khi nhấp vào menu
-            $('.menu-item').click(function() {
-                var page = $(this).data('page') + '.php';
-                loadContent(page);
-            });
+        // Xử lý sự kiện khi nhấp vào menu
+        $('.menu-item').click(function() {
+            var page = $(this).data('page') + '.php';
+            loadContent(page);
         });
+    });
 
-        function loadContent(page, id = null) {
-            // Truyền thêm id vào URL nếu có
-            var url = 'fe/load_content.php?page=' + page;
-            if (id) {
-                url += '&id=' + id;
-            }
-            $('#FRAGMENT').load(url);
+    function loadContent(page, id = null) {
+        // Truyền thêm id vào URL nếu có
+        var url = 'fe/load_content.php?page=' + page;
+        if (id) {
+            url += '&id=' + id;
         }
+        $('#FRAGMENT').load(url);
+    }
     </script>
 
 </head>
@@ -84,18 +84,21 @@ if (!isset($_SESSION['user'])) {
             <li class="menu-item" data-page="roles">Quyền người dùng</li>
             <li class="menu-item" data-page="add_user">Thêm người dùng</li>
             <li class="menu-item" data-page="users">Quản lý</li>
+            <li class="disable-item">Khác</li>
+            <li class="menu-item" data-page="sliders">Slide & chương trình</li>
+            <li class="menu-item" data-page="vouchers">Phiếu giảm giá - voucher</li>
         </ul>
     </div>
 
     <div class="content">
         <div class="header">
-            <h1>Laptop Store</h1>
+            <h1><?php echo $config['PROJECT_NAME']; ?></h1>
         </div>
         <?php if (isset($_GET['message']) && isset($_GET['type'])): ?>
-            <div class="alert <?php echo htmlspecialchars($_GET['type']); ?>">
-                <span class="alert-icon">✔️</span>
-                <?php echo htmlspecialchars($_GET['message']); ?>
-            </div>
+        <div class="alert <?php echo htmlspecialchars($_GET['type']); ?>">
+            <span class="alert-icon">✔️</span>
+            <?php echo htmlspecialchars($_GET['message']); ?>
+        </div>
         <?php endif; ?>
         <div id="FRAGMENT"></div>
     </div>

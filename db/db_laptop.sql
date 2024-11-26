@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 18, 2024 lúc 04:56 PM
+-- Thời gian đã tạo: Th10 26, 2024 lúc 05:37 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.0.30
 
@@ -62,9 +62,20 @@ CREATE TABLE `t_orders` (
   `id` int(11) NOT NULL,
   `userId` int(11) DEFAULT NULL,
   `orderDate` timestamp NOT NULL DEFAULT current_timestamp(),
-  `totalAmount` decimal(10,2) NOT NULL,
-  `status` varchar(50) DEFAULT 'Pending'
+  `totalAmount` int(11) NOT NULL,
+  `status` varchar(50) DEFAULT 'Pending',
+  `address` varchar(120) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `phone` varchar(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `t_orders`
+--
+
+INSERT INTO `t_orders` (`id`, `userId`, `orderDate`, `totalAmount`, `status`, `address`, `name`, `phone`) VALUES
+(3, 1, '2024-11-24 00:15:51', 798000, 'completed', 'Hà Nội', 'SSSS', '123123'),
+(6, 1, '2024-11-24 08:30:19', 589000, 'pending', '22222', '22222222', '123123');
 
 -- --------------------------------------------------------
 
@@ -77,8 +88,19 @@ CREATE TABLE `t_order_details` (
   `orderId` int(11) NOT NULL,
   `productId` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
-  `price` decimal(10,2) NOT NULL
+  `price` int(11) NOT NULL,
+  `totalPrice` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `t_order_details`
+--
+
+INSERT INTO `t_order_details` (`id`, `orderId`, `productId`, `quantity`, `price`, `totalPrice`) VALUES
+(2, 3, 1, 2, 399000, 798000),
+(7, 6, 2, 1, 0, 0),
+(8, 6, 3, 1, 190000, 190000),
+(9, 6, 1, 1, 399000, 399000);
 
 -- --------------------------------------------------------
 
@@ -117,15 +139,20 @@ CREATE TABLE `t_product` (
   `info` text DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL,
   `brandId` int(11) DEFAULT NULL,
-  `typeId` int(11) DEFAULT NULL
+  `typeId` int(11) DEFAULT NULL,
+  `sold` int(11) DEFAULT NULL,
+  `percent` int(11) DEFAULT NULL,
+  `newPrice` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `t_product`
 --
 
-INSERT INTO `t_product` (`id`, `name`, `ram`, `ssd`, `hdd`, `weight`, `screen`, `cpu`, `isDiscount`, `price`, `image`, `description`, `info`, `quantity`, `brandId`, `typeId`) VALUES
-(1, 'LAPTOP 123', 2, 3, 3, 3, 3, '3', 0, 399000, 'product_673b4ccedd18c6.37633523.jpg', 'SS', 'SS', 32, 1, 1);
+INSERT INTO `t_product` (`id`, `name`, `ram`, `ssd`, `hdd`, `weight`, `screen`, `cpu`, `isDiscount`, `price`, `image`, `description`, `info`, `quantity`, `brandId`, `typeId`, `sold`, `percent`, `newPrice`) VALUES
+(1, 'LAPTOP 123', 2, 3, 3, 3, 3, '3', 0, 399000, 'product_673b4ccedd18c6.37633523.jpg', 'SS', 'SS', 12, 1, 1, 2, 0, 0),
+(2, 'SSS', 123, 12, 2, 21, 213, '123', 1, 123, 'product_6742f19b0ab943.50001048.jpg', 'S', 'S', 123, 1, 1, 0, 0, 0),
+(3, 'Test NewProduct', 12, 21, 21, 121, 21, '21', 1, 200000, 'product_67430f612ffcf6.55016890.jpg', '12', '12', 12, 1, 1, 0, 5, 190000);
 
 -- --------------------------------------------------------
 
@@ -202,6 +229,13 @@ CREATE TABLE `t_revenue` (
   `price` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Đang đổ dữ liệu cho bảng `t_revenue`
+--
+
+INSERT INTO `t_revenue` (`id`, `orderId`, `price`) VALUES
+(1, 3, 798000);
+
 -- --------------------------------------------------------
 
 --
@@ -211,7 +245,8 @@ CREATE TABLE `t_revenue` (
 CREATE TABLE `t_roles` (
   `id` int(11) NOT NULL,
   `roleName` varchar(50) NOT NULL,
-  `description` text DEFAULT NULL
+  `description` text DEFAULT NULL,
+  `role` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -248,7 +283,8 @@ CREATE TABLE `t_shopping_cart` (
 --
 
 INSERT INTO `t_shopping_cart` (`id`, `userId`, `productId`, `quantity`, `added_at`) VALUES
-(1, 1, 1, 1, '2024-11-18 14:42:00');
+(10, 1, 3, 1, '2024-11-26 16:14:41'),
+(11, 1, 1, 2, '2024-11-26 16:21:55');
 
 -- --------------------------------------------------------
 
@@ -497,13 +533,13 @@ ALTER TABLE `t_features`
 -- AUTO_INCREMENT cho bảng `t_orders`
 --
 ALTER TABLE `t_orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT cho bảng `t_order_details`
 --
 ALTER TABLE `t_order_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT cho bảng `t_payments`
@@ -515,7 +551,7 @@ ALTER TABLE `t_payments`
 -- AUTO_INCREMENT cho bảng `t_product`
 --
 ALTER TABLE `t_product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT cho bảng `t_product_discount`
@@ -551,7 +587,7 @@ ALTER TABLE `t_product_type`
 -- AUTO_INCREMENT cho bảng `t_revenue`
 --
 ALTER TABLE `t_revenue`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT cho bảng `t_roles`
@@ -569,7 +605,7 @@ ALTER TABLE `t_shipping`
 -- AUTO_INCREMENT cho bảng `t_shopping_cart`
 --
 ALTER TABLE `t_shopping_cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT cho bảng `t_special_tech`

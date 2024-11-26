@@ -7,6 +7,21 @@ require_once 'db/connect.php';
 $config = require 'config/config.php';
 
 $db = new Database();
+
+$totalQuantity = 0;
+
+if (isset($_SESSION['user'])) {
+    $conditions = [
+        'userId' => $_SESSION['user']['id'],
+    ];
+
+    $cart = $db->findAll('t_shopping_cart', $conditions);
+
+    foreach ($cart as $item) {
+        $totalQuantity += $item['quantity']; 
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +29,8 @@ $db = new Database();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Laptop Store</title>
+    <link rel="icon" type="image/x-icon" href="<?php echo $config['BASE_URL'] .'/assets/images/iassets/logo.png'; ?>">
     <?php require_once "views/lib.php"; ?>
 </head>
 
@@ -24,32 +40,23 @@ $db = new Database();
 
         <?php require_once "views/header.php"; ?>
 
-
         <div class="content">
-            <div class="row">
-                <?php require_once "views/slider.php"; ?>
-            </div>
+            <?php require_once "views/slider.php"; ?>
 
-            <div class="row">
-                <h3>Danh Mục Laptop</h3>
-                <?php require_once 'views/list_brand.php'; ?>
-            </div>
+            <?php require_once 'views/list_brand.php'; ?>
 
-            <div class="row" style="padding: 10px 0;">
-                <h3>Đang giảm giá</h3>
-            </div>
             <?php require_once 'views/discounting_product.php'; ?>
 
-            <div class="filter">
+            <!-- <div class="filter">
 
                 <div class="row">
-                    <!-- <div class="ifilter">
+                    <div class="ifilter">
                         <a class="item">
                             <i class="fa-solid fa-filter"></i>
                             &nbsp;
                             Lọc
                         </a>
-                    </div> -->
+                    </div>
 
                 </div>
 
@@ -73,7 +80,7 @@ $db = new Database();
                     </ul>
                 </div>
 
-            </div>
+            </div> -->
 
             <?php require_once 'views/list_product.php'; ?>
             <?php require_once 'views/footer.php'; ?>
@@ -90,10 +97,11 @@ $db = new Database();
             $('.slider').slick({
                 dots: true,
                 infinite: true,
-                // speed: 500,
-                fade: true,
+                speed: 500,
+                // fade: true,
                 cssEase: 'linear',
-                // autoplay: true,
+                delay: 3000,
+                autoplay: true,
                 arrows: true,
                 prevArrow: "<button type='button' class='slick-prev pull-left'><i class='fa fa-angle-left' aria-hidden='true'></i></button>",
                 nextArrow: "<button type='button' class='slick-next pull-right'><i class='fa fa-angle-right' aria-hidden='true'></i></button>"

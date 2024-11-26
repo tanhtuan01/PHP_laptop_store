@@ -3,9 +3,12 @@
           <div class="top row">
               <div class="logo">
                   <a href="<?php echo $config['BASE_URL']; ?>">
-                      Trang chủ
-                      <!-- <img src="https://fecredit.com.vn/wp-content/uploads/2018/12/thegioididong.png" alt=""> -->
+                      <img src="<?php echo $config['BASE_URL'] .'/assets/images/iassets/header_logo.png'; ?>" alt="">
+                      <div class="name">
+                          <?php echo $config['PROJECT_NAME']; ?>
+                      </div>
                   </a>
+
               </div>
               <div class="search">
                   <div class="box-search">
@@ -20,26 +23,26 @@
               </div>
               <div class="login">
                   <?php if (isset($_SESSION['user']) && !empty($_SESSION['user'])) { ?>
-                      <a href='<?php echo $config['BASE_URL'] . "/user/profile.php"; ?>'>
-                          👤
-                          <?php echo $_SESSION['user']['username']; ?></a>
+                  <a href='<?php echo $config['BASE_URL'] . "/user/profile.php"; ?>'>
+                      👤
+                      <?php echo $_SESSION['user']['username']; ?></a>
                   <?php } else { ?>
-                      <a href="<?php echo $config['BASE_URL'] . "/login.php"; ?>">
-                          👤
-                          Đăng nhập</a>
+                  <a href="<?php echo $config['BASE_URL'] . "/login.php"; ?>">
+                      👤
+                      Đăng nhập</a>
                   <?php } ?>
               </div>
 
               <div class="cart">
                   <?php if (isset($_SESSION['user']) && !empty($_SESSION['user'])) { ?>
-                      <a href="<?php echo $config['BASE_URL'] . "/user/cart.php"; ?>">
-                          🛒
-                          Giỏ hàng
-                      </a>
+                  <a href="<?php echo $config['BASE_URL'] . "/user/cart.php"; ?>">
+                      🛒
+                      Giỏ hàng (<?php echo $totalQuantity ?? 0; ?>)
+                  </a>
                   <?php } else { ?> <a href="<?php echo $config['BASE_URL'] . "/login.php"; ?>">
-                          🛒
-                          (0)
-                      </a> <?php } ?>
+                      🛒
+                      (0)
+                  </a> <?php } ?>
               </div>
               <div class="address">
                   <a href="">

@@ -16,7 +16,9 @@ $allowed_pages = [
 	'edit_brand.php',
 	'users.php',
 	'roles.php',
-	'add_user.php'
+	'add_user.php',
+	'sliders.php',
+	'vouchers.php'
 ];
 
 if (in_array($page, $allowed_pages)) {

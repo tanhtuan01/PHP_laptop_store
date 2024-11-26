@@ -213,7 +213,7 @@ if (isset($_POST['submit']) && isset($_POST['selected_products'])) {
                         </td>
                         <td>
                             <a
-                                href="<?php echo $config['HOST'] . "/" . $config['PROJECT_NAME'] . "/views/product.php?id=" . $cart['productId']; ?>">🔍
+                                href="<?php echo $config['HOST'] . "/" . $config['ROOT_FOLDER'] . "/views/product.php?id=" . $cart['productId']; ?>">🔍
                                 Xem</a>
                         </td>
                         <td>

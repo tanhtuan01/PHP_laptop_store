@@ -39,7 +39,7 @@
             <div class="header-content">
                 <div class="top row">
                     <div class="logo">
-                        <a href="<?php echo $config['HOST'] . '/' . $config['PROJECT_NAME']; ?>">
+                        <a href="<?php echo $config['HOST'] . '/' . $config['ROOT_FOLDER']; ?>">
                             Trang chủ
                             <!-- <img src="https://fecredit.com.vn/wp-content/uploads/2018/12/thegioididong.png" alt=""> -->
                         </a>

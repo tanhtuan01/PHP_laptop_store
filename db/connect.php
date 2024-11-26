@@ -77,7 +77,7 @@ class Database {
     }
 
 
-      public function findAll($table, $conditions = [], $orderBy = 'id', $orderDirection = 'DESC') {
+    public function findAll($table, $conditions = [], $orderBy = 'id', $orderDirection = 'DESC', $limit = null) {
         $sql = "SELECT * FROM {$table}";
 
         if ($conditions) {
@@ -86,10 +86,18 @@ class Database {
 
         $sql .= " ORDER BY {$orderBy} {$orderDirection}";
 
+        if ($limit !== null) {
+            $sql .= " LIMIT :limit";
+        }
+
         $stmt = $this->conn->prepare($sql);
         
         foreach ($conditions as $key => $value) {
             $stmt->bindValue(":{$key}", $value);
+        }
+
+        if ($limit !== null) {
+            $stmt->bindValue(":limit", (int)$limit, PDO::PARAM_INT);
         }
         
         $stmt->execute();

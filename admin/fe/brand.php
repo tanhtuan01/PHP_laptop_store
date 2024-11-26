@@ -48,7 +48,7 @@
                 <td><?php echo $i; ?></td>
                 <td>
                     <?php if ($brand['image']): ?>
-                    <img src="<?php echo $config['HOST'] . '/'. $config['PROJECT_NAME'] . '/assets/images/brands/'. htmlspecialchars($brand['image']); ?>"
+                    <img src="<?php echo $config['HOST'] . '/'. $config['ROOT_FOLDER'] . '/assets/images/brands/'. htmlspecialchars($brand['image']); ?>"
                         alt="<?php echo htmlspecialchars($brand['name']); ?>" style="width: 50px; height: auto;">
                     <?php else: ?>
                     Không có ảnh

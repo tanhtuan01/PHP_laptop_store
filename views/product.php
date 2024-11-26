@@ -208,7 +208,7 @@ if (isset($_SESSION['user'])) {
 <div class="view-product">
 
     <div class="left">
-        <img src="<?php echo $config['HOST'] . $config['PROJECT_NAME'] . '/assets/images/products/' . $product['image']; ?>"
+        <img src="<?php echo $config['HOST'] . $config['ROOT_FOLDER'] . '/assets/images/products/' . $product['image']; ?>"
             alt="">
     </div>
 
