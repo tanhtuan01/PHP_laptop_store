@@ -1,7 +1,7 @@
 <?php
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $limit = 1;
-$paginationData = $db->findWithPagination('t_product', ['isDiscount' => false], 'id', 'DESC', $limit, $page);
+$paginationData = $db->findWithPagination('t_product', ['isDiscount' => false],null, null, 'id', 'DESC', $config['DEFAULT_PAGE_SIZE'], $page);
 
 $products = $paginationData['data'];
 $totalPages = $paginationData['last_page'];

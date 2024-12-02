@@ -30,7 +30,8 @@
                     <form action="<?php echo $config['BASE_URL'] . "/views/search.php" ?>" method="GET">
                         <div class="input">
                             <input type="text" placeholder="Bạn tìm gì..." name="q" id="ips">
-                            <button><i class="fa-solid fa-magnifying-glass"></i></button>
+                            <button style="cursor:pointer" type="submit"><i
+                                    class="fa-solid fa-magnifying-glass"></i></button>
                         </div>
 
                     </form>

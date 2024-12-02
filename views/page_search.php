@@ -1,33 +1,23 @@
-<?php
-$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-$limit = 1;
-$paginationData = $db->findWithPagination('t_product', ['isDiscount' => true],null,null, 'id', 'DESC', $config['DEFAULT_PAGE_SIZE'], $page);
-
-$products = $paginationData['data'];
-$totalPages = $paginationData['last_page'];
-$currentPage = $paginationData['current_page'];
-?>
-
 <div class="row">
-    <div class="title-more">
-        <h3 class="title-block">Sản phẩm giảm giá</h3>
-    </div>
+    <h3><?php echo 'Kết quả tìm kiếm cho: "'. $q .'"'; ?></h3>
 </div>
 
 <div class="products row">
     <?php if ($products): ?>
-    <?php 
-        foreach ($products as $product): ?>
+    <?php  foreach ($products as $product): ?>
     <a class="product" href="<?php echo $config['BASE_URL'] . '/views/product.php?id=' . $product['id'] ?>
 ">
+        <?php if($product['isDiscount']) { ?>
         <div class="tag-discount">
             <div>
                 Giảm giá <br> <?php echo $product['percent']; ?>%
             </div>
         </div>
+        <?php } ?>
         <div class="box">
             <div class="image">
-                <img src="<?php echo $config['BASE_URL'] . '/assets/images/products/' . $product['image']; ?>" alt="">
+                <img src="https://cdn.tgdd.vn/Products/Images/44/311178/asus-vivobook-go-15-e1504fa-r5-nj776w-thumb-600x600.jpg"
+                    alt="">
             </div>
             <div class="gift">
                 <span>
@@ -37,21 +27,15 @@ $currentPage = $paginationData['current_page'];
             <h3 class="name">
                 <?php echo $product['name']; ?>
             </h3>
-            <div class="hardware">
-                <span class="tag">RAM<?php echo $product['ram']; ?>GB</span>
-                <span class="tag">SSD<?php echo $product['ssd']; ?>GB</span>
-            </div>
             <strong class="price">
-                <?php echo (number_format($product['newPrice'], 0, ',', '.')) . "đ"; ?>
+                <?php echo (number_format($product['isDiscount'] ? $product['newPrice'] : $product['price'], 0, ',', '.')); ?>đ
             </strong>
+            <?php if($product['isDiscount']) { ?>
             <div class="box-p">
                 <p class="price-old"> <?php echo (number_format($product['price'], 0, ',', '.')) . "đ"; ?></p>
                 <div class="percent"><b>-<?php echo $product['percent'] ?>%</b></div>
             </div>
-            <!-- Đang phát triển -->
-            <!-- <p class="item-gift">
-                Quà <b>1.090.000₫</b>
-            </p> -->
+            <?php } ?>
             <div class="add-to-cart">
                 <button title="Xem sản phẩm" class="view"><i class="fa-regular fa-eye"></i></i>&nbsp;</button>
                 <button title="Thêm vào giỏ hàng" class="addtocart"><i
@@ -59,25 +43,25 @@ $currentPage = $paginationData['current_page'];
             </div>
         </div>
     </a>
-    <?php 
-        endforeach; ?>
+    <?php  endforeach; ?>
     <?php else: ?>
     <p>Không có sản phẩm nào</p>
     <?php endif; ?>
 
 </div>
 
+
 <div class="row">
     <div class="pagination">
         <?php if ($currentPage > 1): ?>
-        <a class="page-item" href="?page=<?php echo $currentPage - 1; ?>">« Trước</a>
+        <a class="page-item" href="?page=<?php echo ($currentPage - 1) .'&q=' .$q; ?>">« Trước</a>
         <?php endif; ?>
         <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-        <a href="?page=<?php echo $i; ?>"
+        <a href="?page=<?php echo $i.'&q=' .$q; ?>"
             class="<?php echo $i == $currentPage ? 'page-item active' : 'page-item'; ?>"><?php echo $i; ?></a>
         <?php endfor; ?>
         <?php if ($currentPage < $totalPages): ?>
-        <a class="page-item" href="?page=<?php echo $currentPage + 1; ?>">Sau »</a>
+        <a class="page-item" href="?page=<?php echo ($currentPage + 1) .'&q=' .$q; ?>">Sau »</a>
         <?php endif; ?>
     </div>
 </div>

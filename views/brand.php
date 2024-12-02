@@ -53,7 +53,7 @@ $products = $db->findAll('t_product', ['brandId' => $id]);
                 </div>
 
                 <div class="row sort">
-                    Sắp xếp theo: <ul>
+                    <!-- Sắp xếp theo: <ul>
                         <li>
                             <a href="">Nổi bật</a>
                         </li>
@@ -69,7 +69,7 @@ $products = $db->findAll('t_product', ['brandId' => $id]);
                         <li>
                             <a href="">Giá</a>
                         </li>
-                    </ul>
+                    </ul> -->
                 </div>
 
             </div>

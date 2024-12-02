@@ -189,38 +189,60 @@ class Database {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function findWithPagination($table, $conditions = [], $orderBy = 'id', $orderDirection = 'DESC', $limit = 10, $page = 1) {
+    public function findWithPagination($table, $conditions = [], $searchKey = null, $searchValue = null, $orderBy = 'id', $orderDirection = 'DESC', $limit = 10, $page = 1) {
         $offset = ($page - 1) * $limit;
+
         $sql = "SELECT * FROM {$table}";
 
+        $whereClauses = [];
         if ($conditions) {
-            $sql .= " WHERE " . implode(" AND ", array_map(fn($k) => "{$k} = :{$k}", array_keys($conditions)));
+            foreach ($conditions as $key => $value) {
+                $whereClauses[] = "{$key} = :{$key}";
+            }
+        }
+
+        if ($searchKey && $searchValue) {
+            $whereClauses[] = "{$searchKey} LIKE :searchValue";
+        }
+
+        if ($whereClauses) {
+            $sql .= " WHERE " . implode(" AND ", $whereClauses);
         }
 
         $sql .= " ORDER BY {$orderBy} {$orderDirection}";
         $sql .= " LIMIT :limit OFFSET :offset";
+
         $stmt = $this->conn->prepare($sql);
 
         foreach ($conditions as $key => $value) {
             $stmt->bindValue(":{$key}", $value);
         }
 
+        if ($searchKey && $searchValue) {
+            $stmt->bindValue(":searchValue", "%{$searchValue}%");
+        }
+
         $stmt->bindValue(":limit", (int)$limit, PDO::PARAM_INT);
         $stmt->bindValue(":offset", (int)$offset, PDO::PARAM_INT);
+
         $stmt->execute();
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
         $countSql = "SELECT COUNT(*) as total FROM {$table}";
-        
-        if ($conditions) {
-            $countSql .= " WHERE " . implode(" AND ", array_map(fn($k) => "{$k} = :{$k}", array_keys($conditions)));
+        if ($whereClauses) {
+            $countSql .= " WHERE " . implode(" AND ", $whereClauses);
         }
-        
+
         $countStmt = $this->conn->prepare($countSql);
-        
+
         foreach ($conditions as $key => $value) {
             $countStmt->bindValue(":{$key}", $value);
         }
-        
+
+        if ($searchKey && $searchValue) {
+            $countStmt->bindValue(":searchValue", "%{$searchValue}%");
+        }
+
         $countStmt->execute();
         $total = $countStmt->fetch(PDO::FETCH_ASSOC)['total'];
 
@@ -230,7 +252,8 @@ class Database {
             'current_page' => $page,
             'last_page' => ceil($total / $limit),
         ];
-    }
+        }
+
 
 
 }
