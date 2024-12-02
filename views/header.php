@@ -1,6 +1,6 @@
 <?php 
     $totalQuantity = 0;
-
+    $totalWishList = 0;
     if (isset($_SESSION['user'])) {
         $conditions = [
             'userId' => $_SESSION['user']['id'],
@@ -10,6 +10,12 @@
 
         foreach ($cart as $item) {
             $totalQuantity += $item['quantity']; 
+        }
+
+        $wishlist = $db->findAll('t_wishlists', $conditions);
+
+        foreach ($wishlist as $item) {
+            $totalWishList++;
         }
     }
 ?>
@@ -60,6 +66,16 @@
                     (0)
                 </a> <?php } ?>
             </div>
+
+            <div class="cart">
+                <?php if (isset($_SESSION['user']) && !empty($_SESSION['user'])) { ?>
+                <a title="Yêu thích" href="<?php echo $config['BASE_URL'] . "/views/wishlist.php"; ?>">
+                    🔖
+                    (<?php echo $totalWishList ?? 0; ?>)
+                </a>
+                <?php } ?>
+            </div>
+
             <div class="address">
                 <a href="">
                     📍

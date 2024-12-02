@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 $config = require_once (dirname(__DIR__)) . '/config/config.php';
 
 require_once (dirname(__DIR__)) . '/db/base.php';
@@ -33,9 +35,13 @@ $products = $db->findAll('t_product', ['brandId' => $id]);
 
         <?php require_once "header.php"; ?>
 
+
         <div class="content">
+
+            <?php require_once "list_brand.php"; ?>
+            <br>
             <div class="row">
-                <h2>Danh sách laptop của "<?php echo $brand['name']; ?>"</h2>
+                <h3>Danh sách laptop của "<?php echo $brand['name']; ?>"</h3>
             </div>
 
 
