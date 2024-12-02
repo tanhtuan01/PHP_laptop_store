@@ -2,9 +2,9 @@
 
 class Database {
     private $host = 'localhost';
-    private $db_name = 'db_laptop';
-    private $username = 'root';
-    private $password = '';
+    private $db_name = 'db_laptop'; //  Chỉnh sửa
+    private $username = 'root';     //  Chỉnh sửa
+    private $password = '';         //  Chỉnh sửa 
     protected $conn;
 
     public function __construct() {
