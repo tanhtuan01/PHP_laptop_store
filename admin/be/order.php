@@ -4,7 +4,7 @@ $id = $_GET['orderId'];
 
 $action = $_GET['action'];
 
-require_once dirname(dirname(__DIR__)) . '/db/connect.php';
+require_once dirname(dirname(__DIR__)) . '/db/base.php';
 require_once dirname(dirname(__DIR__)) . '/db/order.php';
 
 $db = new Database();

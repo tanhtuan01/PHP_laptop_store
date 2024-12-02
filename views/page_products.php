@@ -1,20 +1,25 @@
 <?php
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$limit = 1;
+$paginationData = $db->findWithPagination('t_product', ['isDiscount' => false], 'id', 'DESC', $limit, $page);
 
-$products = $db->findAll('t_product', ['isDiscount' => false], 'id', 'DESC', 12);
-
+$products = $paginationData['data'];
+$totalPages = $paginationData['last_page'];
+$currentPage = $paginationData['current_page'];
 ?>
 
 <div class="row">
     <div class="title-more">
-        <h3 class="title-block">Một số sản phẩm khác</h3>
-        <a class="btn btn-more" href='views/products.php'>Xem nhiều hơn</a>
+        <h3 class="title-block">Một số sản phẩm</h3>
     </div>
 </div>
+
 <div class="products row">
     <?php if ($products): ?>
-    <?php $i = 1;
+    <?php 
         foreach ($products as $product): ?>
-    <a class="product" href="views/product.php?id=<?php echo $product['id']; ?>">
+    <a class="product" href="<?php echo $config['BASE_URL'] . '/views/product.php?id=' . $product['id'] ?>
+">
         <div class="box">
             <div class="image">
                 <img src="<?php echo $config['BASE_URL'] . '/assets/images/products/' . $product['image']; ?>" alt="">
@@ -34,14 +39,6 @@ $products = $db->findAll('t_product', ['isDiscount' => false], 'id', 'DESC', 12)
             <strong class="price">
                 <?php echo (number_format($product['price'], 0, ',', '.')) . "đ"; ?>
             </strong>
-            <!-- <div class="box-p">
-                <p class="price-old">14.490.000₫</p>
-                <div class="percent">9%</div>
-            </div> -->
-            <!-- Đang phát triển -->
-            <!-- <p class="item-gift">
-                Quà <b>1.090.000₫</b>
-            </p> -->
             <div class="add-to-cart">
                 <button title="Xem sản phẩm" class="view"><i class="fa-regular fa-eye"></i></i>&nbsp;</button>
                 <button title="Thêm vào giỏ hàng" class="addtocart"><i
@@ -49,10 +46,25 @@ $products = $db->findAll('t_product', ['isDiscount' => false], 'id', 'DESC', 12)
             </div>
         </div>
     </a>
-    <?php $i++;
+    <?php 
         endforeach; ?>
     <?php else: ?>
     <p>Không có sản phẩm nào</p>
     <?php endif; ?>
 
+</div>
+
+<div class="row">
+    <div class="pagination">
+        <?php if ($currentPage > 1): ?>
+        <a class="page-item" href="?page=<?php echo $currentPage - 1; ?>">« Trước</a>
+        <?php endif; ?>
+        <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+        <a href="?page=<?php echo $i; ?>"
+            class="<?php echo $i == $currentPage ? 'page-item active' : 'page-item'; ?>"><?php echo $i; ?></a>
+        <?php endfor; ?>
+        <?php if ($currentPage < $totalPages): ?>
+        <a class="page-item" href="?page=<?php echo $currentPage + 1; ?>">Sau »</a>
+        <?php endif; ?>
+    </div>
 </div>

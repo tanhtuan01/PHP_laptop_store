@@ -2,7 +2,7 @@
 
 $config = require_once (dirname(__DIR__)) . '/config/config.php';
 
-require_once (dirname(__DIR__)) . '/db/connect.php';
+require_once (dirname(__DIR__)) . '/db/base.php';
 
 $db = new Database();
 

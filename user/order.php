@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require_once (dirname(__DIR__)) . '/db/connect.php';
+require_once (dirname(__DIR__)) . '/db/base.php';
 
 $config = require_once (dirname(__DIR__)) . '/config/config.php';
 

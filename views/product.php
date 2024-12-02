@@ -4,7 +4,7 @@ session_start();
 
 $config = require_once (dirname(__DIR__)) . '/config/config.php';
 
-require_once (dirname(__DIR__)) . '/db/connect.php';
+require_once (dirname(__DIR__)) . '/db/base.php';
 
 $db = new Database();
 
@@ -17,6 +17,21 @@ $id = $_GET['id'];
 $product = $db->getOne('t_product', $id);
 if (isset($_SESSION['user'])) {
     // header('Location: ../index.php');
+
+    $totalQuantity = 0;
+
+    if (isset($_SESSION['user'])) {
+        $conditions = [
+            'userId' => $_SESSION['user']['id'],
+        ];
+
+        $cart = $db->findAll('t_shopping_cart', $conditions);
+
+        foreach ($cart as $item) {
+            $totalQuantity += $item['quantity']; 
+        }
+    }
+
     // Check exists user cart
     $conditions = [
         'userId' => $_SESSION['user']['id'],
@@ -91,7 +106,7 @@ if (isset($_SESSION['user'])) {
 <?php if (isset($_SESSION['user'])) { ?>
 <div>
     <a href="<?php echo $config['BASE_URL'] . '/user/cart.php'; ?>">Giỏ hàng
-        (<span><?php echo isset($cart['quantity']) ? $cart['quantity'] : 0; ?></span>)</a>
+        (<span><?php echo isset($totalQuantity) ? $totalQuantity : 0; ?></span>)</a>
 </div>
 <?php } else { ?>
 <div>

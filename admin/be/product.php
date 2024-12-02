@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(dirname(__DIR__)) . '/db/connect.php';
+require_once dirname(dirname(__DIR__)) . '/db/base.php';
 
 $targePath = dirname(dirname(__DIR__)) . '/assets/images/products/';
 

@@ -1,13 +1,16 @@
 <?php
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$limit = 1;
+$paginationData = $db->findWithPagination('t_product', ['isDiscount' => true], 'id', 'DESC', $limit, $page);
 
-$products = $db->findAll('t_product', ['isDiscount' => true], 'id', 'DESC',8);
-
+$products = $paginationData['data'];
+$totalPages = $paginationData['last_page'];
+$currentPage = $paginationData['current_page'];
 ?>
 
 <div class="row">
     <div class="title-more">
-        <h3 class="title-block">Đang giảm giá</h3>
-        <a class="btn btn-more" href="views/discounting.php">Xem nhiều hơn</a>
+        <h3 class="title-block">Sản phẩm giảm giá</h3>
     </div>
 </div>
 
@@ -15,7 +18,8 @@ $products = $db->findAll('t_product', ['isDiscount' => true], 'id', 'DESC',8);
     <?php if ($products): ?>
     <?php 
         foreach ($products as $product): ?>
-    <a class="product" href="views/product.php?id=<?php echo $product['id']; ?>">
+    <a class="product" href="<?php echo $config['BASE_URL'] . '/views/product.php?id=' . $product['id'] ?>
+">
         <div class="tag-discount">
             <div>
                 Giảm giá <br> <?php echo $product['percent']; ?>%
@@ -61,4 +65,19 @@ $products = $db->findAll('t_product', ['isDiscount' => true], 'id', 'DESC',8);
     <p>Không có sản phẩm nào</p>
     <?php endif; ?>
 
+</div>
+
+<div class="row">
+    <div class="pagination">
+        <?php if ($currentPage > 1): ?>
+        <a class="page-item" href="?page=<?php echo $currentPage - 1; ?>">« Trước</a>
+        <?php endif; ?>
+        <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+        <a href="?page=<?php echo $i; ?>"
+            class="<?php echo $i == $currentPage ? 'page-item active' : 'page-item'; ?>"><?php echo $i; ?></a>
+        <?php endfor; ?>
+        <?php if ($currentPage < $totalPages): ?>
+        <a class="page-item" href="?page=<?php echo $currentPage + 1; ?>">Sau »</a>
+        <?php endif; ?>
+    </div>
 </div>

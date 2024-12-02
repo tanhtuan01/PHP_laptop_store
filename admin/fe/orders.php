@@ -1,5 +1,5 @@
 <?php
-require_once dirname(dirname(__DIR__)) . '/db/connect.php';
+require_once dirname(dirname(__DIR__)) . '/db/base.php';
 
 $db = new Database();
 $orders = $db->findAll('t_orders', [], 'id', 'DESC');

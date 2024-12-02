@@ -1,8 +1,9 @@
 <?php
-require_once 'db/connect.php';
+require_once 'db/base.php';
+require_once 'db/role.php';
 session_start();
 $db = new Database();
-
+$role = new Role();
 $config = require_once 'config/config.php';
 
 if(isset($_SESSION['user'])){
@@ -14,11 +15,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
 
     $user = $db->getOneByColumn('t_users', 'username', $username);
-
+    
     if ($user) {
         // Check password
         if (md5($password) == $user['password']) {
+            // Get role
+            $userRole = $role->getRoleByUser($user['id']);
             $_SESSION['user'] = $user;
+            $_SESSION['user']['role'] = $userRole;
             header("Location: {$config['BASE_URL']}/");
             exit();
         } else {

@@ -1,5 +1,5 @@
 <?php
-require_once dirname(dirname(__DIR__)) . '/db/connect.php';
+require_once dirname(dirname(__DIR__)) . '/db/base.php';
 require_once dirname(dirname(__DIR__)) . '/db/order.php';
 
 $config = require_once dirname(dirname(__DIR__)) . '/config/config.php';

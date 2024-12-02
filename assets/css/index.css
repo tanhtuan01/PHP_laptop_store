@@ -477,3 +477,23 @@ button.slick-arrow.slick-prev{
 	left: 10px;
 }
 /* End Slider */
+
+/** Pagination */
+
+.pagination{
+	width: 100%;
+	text-align: center;
+}
+
+.pagination a.page-item{
+	padding: 5px 12px;
+	background-color: silver;
+	border-radius: 5px;
+	color: white;
+}
+
+.pagination a.page-item.active{
+	background-color: #f59c0c;
+}
+
+/** End Pagination */

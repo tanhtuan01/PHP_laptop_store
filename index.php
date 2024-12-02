@@ -2,25 +2,13 @@
 
 session_start();
 
-require_once 'db/connect.php';
+require_once 'db/base.php';
 
 $config = require 'config/config.php';
 
 $db = new Database();
 
-$totalQuantity = 0;
 
-if (isset($_SESSION['user'])) {
-    $conditions = [
-        'userId' => $_SESSION['user']['id'],
-    ];
-
-    $cart = $db->findAll('t_shopping_cart', $conditions);
-
-    foreach ($cart as $item) {
-        $totalQuantity += $item['quantity']; 
-    }
-}
 
 ?>
 <!DOCTYPE html>

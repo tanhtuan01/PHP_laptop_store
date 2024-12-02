@@ -1,5 +1,7 @@
 <?php
-require_once 'db/connect.php';
+require_once 'db/base.php';
+
+session_start();
 
 $db = new Database();
 
@@ -14,7 +16,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'password' => md5($password),
     ];
 
-    if ($db->insert('t_users', $data)) {
+    $userId = $db->insertAndGetId('t_users', $data);
+
+    if ($userId) {
+        // Hiện đang fix cứng 2 role
+        $db->insert('t_user_roles',['userId' => $userId,'roleId'=> 1]);
         $success = "Đăng ký thành công cho tên đăng nhập: " . htmlspecialchars($username);
     } else {
         $error = "Đăng ký không thành công. Vui lòng thử lại!";

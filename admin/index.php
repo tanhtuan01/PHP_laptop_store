@@ -9,6 +9,15 @@ if (!isset($_SESSION['user'])) {
     die();
 }
 
+$isAdmin = !empty(array_filter($_SESSION['user']['role'], function ($role) {
+    return $role['role'] === 'ADMIN';
+}));
+
+if(!$isAdmin){
+    Header("location: {$config['BASE_URL']}/login.php");
+    die();
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,23 +28,7 @@ if (!isset($_SESSION['user'])) {
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- <script>
-    $(document).ready(function() {
-        var urlParams = new URLSearchParams(window.location.search);
-        var page = urlParams.get('page') || 'add_product'; 
-        loadContent(page + '.php');
 
-        // Xử lý sự kiện khi nhấp vào menu
-        $('.menu-item').click(function() {
-            var page = $(this).data('page') + '.php';
-            loadContent(page);
-        });
-    });
-
-    function loadContent(page) {
-        $('#FRAGMENT').load('fe/load_content.php?page=' + page);
-    }
-</script> -->
     <script>
     $(document).ready(function() {
         var urlParams = new URLSearchParams(window.location.search);

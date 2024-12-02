@@ -46,7 +46,18 @@
     background-color: #f8f8f8;
 }
 
-.edit-btn {
+.profile-section form input{
+    padding:  5px;
+    border: 1px solid silver;
+    outline: none;
+    width: 80%;
+}
+
+.profile-section form input:focus{
+    border-color: #007bff;
+}
+
+.btn-edit {
     display: inline-block;
     padding: 10px 15px;
     background-color: #007bff;
@@ -54,8 +65,9 @@
     text-decoration: none;
     border-radius: 4px;
     transition: background-color 0.3s;
+    border: none;
 }
 
-.edit-btn:hover {
+.btn-edit:hover {
     background-color: #0056b3;
 }
