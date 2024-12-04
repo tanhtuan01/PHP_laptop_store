@@ -1,7 +1,20 @@
 <?php
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-$paginationData = $db->findWithPagination('t_product', ['isDiscount' => true],null,null, 'id', 'DESC', $config['DEFAULT_PAGE_SIZE'], $page);
+$sort = isset($_GET['sort']) && in_array(strtoupper($_GET['sort']), ['ASC', 'DESC']) ? strtoupper($_GET['sort']) : 'DESC';
+$conditions = [
+    'isDiscount' => true,
+];
 
+$paginationData = $db->findWithPagination(
+    't_product',
+    $conditions,
+    null,
+    null,
+    'price',
+    $sort,   
+    $config['DEFAULT_PAGE_SIZE'],
+    $page
+);
 $products = $paginationData['data'];
 $totalPages = $paginationData['last_page'];
 $currentPage = $paginationData['current_page'];
@@ -11,6 +24,19 @@ $currentPage = $paginationData['current_page'];
     <div class="title-more">
         <h3 class="title-block">Sản phẩm giảm giá</h3>
     </div>
+</div>
+
+<div class="row sort">
+    Sắp xếp theo: <ul>
+
+        <li>
+            <a href="?sort=asc">Giá tăng dần</a>
+        </li>
+        <li>
+            <a href="?sort=desc">Giá giảm dần</a>
+        </li>
+
+    </ul>
 </div>
 
 <div class="products row">

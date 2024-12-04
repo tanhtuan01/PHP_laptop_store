@@ -10,3 +10,4 @@
  <link rel="stylesheet" href="<?php echo $config['BASE_URL'] . "/assets/css/base.css" ?>">
  <link rel="stylesheet" href="<?php echo $config['BASE_URL'] . "/assets/css/index.css" ?>">
  <link rel="stylesheet" href="<?php echo $config['BASE_URL'] . "/assets/css/view_product.css" ?>">
+ <link rel="stylesheet" href="<?php echo $config['BASE_URL'] . "/assets/css/filter.css" ?>">

@@ -88,6 +88,10 @@ $type =  $db->findAll('t_type');
             </div>
         </div>
 
+        <div>
+            <img id="previewImage" style="display: block;margin: auto;border:1px solid silver" src="" width="300"
+                height="200" alt="">
+        </div>
         <label for="image">Hình Ảnh:</label>
         <input type="file" id="image" name="image" accept="image/*" required>
 
@@ -153,4 +157,23 @@ function calculateDiscountedPrice() {
         newPriceField.value = Math.round(newPrice.toFixed(2))
     }
 }
+</script>
+
+
+<script>
+document.getElementById('image').addEventListener('change', function(event) {
+    var fileInput = event.target;
+    var file = fileInput.files[0];
+    var previewImage = document.getElementById('previewImage');
+
+    if (file) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            previewImage.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    } else {
+        previewImage.src = '';
+    }
+});
 </script>

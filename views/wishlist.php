@@ -42,10 +42,10 @@
             <?php require_once 'page_wishlist.php'; ?>
 
             <br>
-            <?php require_once 'footer.php'; ?>
 
         </div>
-
+        <?php require_once 'footer.php'; ?>
+    </div>
 
 </body>
 

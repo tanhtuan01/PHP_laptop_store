@@ -252,7 +252,7 @@ class Database {
             'current_page' => $page,
             'last_page' => ceil($total / $limit),
         ];
-        }
+    }
 
 
 

@@ -28,15 +28,13 @@
 
         <div class="content">
 
-            <?php require_once 'list_brand.php'; ?>
-
-
             <?php require_once 'page_discounting.php'; ?>
 
             <br>
-            <?php require_once 'footer.php'; ?>
 
         </div>
+        <?php require_once 'footer.php'; ?>
+    </div>
 
 
 </body>

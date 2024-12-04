@@ -15,9 +15,9 @@
         </div>
         <div class="footer-right">
             <h3>Liên hệ</h3>
-            <p>Email: @</p>
-            <p>Hotline: +123 456 789</p>
-            <p>Địa chỉ: #</p>
+            <p>Email: <?php echo $config['EMAIL']; ?></p>
+            <p>Hotline: <a href="tel:<?php echo $config['HOTLINE']; ?>"><?php echo $config['HOTLINE']; ?></a></p>
+            <p>Địa chỉ: <?php echo $config['ADDRESS']; ?></p>
         </div>
     </div>
     <div class="footer-bottom">

@@ -1,0 +1,92 @@
+/* Nút bộ lọc */
+.product-filter {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.btn-filter {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn-filter:hover {
+    background-color: #0056b3;
+}
+
+.modal {
+    display: block; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999999999;
+}
+
+/* Nội dung modal */
+.modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 50%;
+    text-align: center;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 18px;
+    color: black;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: red;
+}
+
+.filter-row{
+    text-align: left;
+}
+
+.f-brand, .price-type-screen{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.f-b-brand{
+    height: 50px;
+    width: 95px;
+    border: 1px solid silver;
+    margin: 0 2px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.f-b-brand img{
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.f-b-brand img.active{
+    border: 2px solid orange;
+}
+
+.price-type-screen .f-price,
+.price-type-screen .f-type,
+.price-type-screen .f-screen{
+    width: calc(100% / 3);
+} 
+
+.price-type-screen p{
+    font-weight: bold;
+}

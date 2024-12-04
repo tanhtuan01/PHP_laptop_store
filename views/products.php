@@ -5,8 +5,10 @@
     $config = require_once dirname(__DIR__) . '/config/config.php';
 
     require_once dirname(__DIR__) . '/db/base.php';
+    require_once dirname(__DIR__) . '/db/product.php';
 
     $db = new Database();
+    $productDb = new Product();
 ?>
 
 <!DOCTYPE html>
@@ -34,10 +36,11 @@
             <?php require_once 'page_products.php'; ?>
 
             <br>
-            <?php require_once 'footer.php'; ?>
 
         </div>
+        <?php require_once 'footer.php'; ?>
 
+    </div>
 
 </body>
 
