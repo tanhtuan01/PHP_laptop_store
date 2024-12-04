@@ -78,6 +78,7 @@ if (isset($_SESSION['user'])) {
     }
 }
 
+$productImages = $db->findAll('t_product_image', ['productId' => $id]);
 
 ?>
 
@@ -107,7 +108,10 @@ if (isset($_SESSION['user'])) {
 
         </div>
 
+        <?php require_once 'scripts.php'; ?>
 
-</body>
+
+
+        </bo<dy>
 
 </html>

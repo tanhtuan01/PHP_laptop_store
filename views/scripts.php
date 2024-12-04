@@ -21,4 +21,34 @@ $(document).ready(function() {
         nextArrow: "<button type='button' class='slick-next pull-right'><i class='fa fa-angle-right' aria-hidden='true'></i></button>"
     });
 });
+
+// $(document).ready(function() {
+//     $('.box-sub-img').slick({
+//         dots: true,
+//         infinite: true,
+//         speed: 500,
+//         // fade: true,
+//         cssEase: 'linear',
+//         delay: 3000,
+//         autoplay: true,
+//         arrows: true,
+//         prevArrow: "<button type='button' class='slick-prev pull-left'><i class='fa fa-angle-left' aria-hidden='true'></i></button>",
+//         nextArrow: "<button type='button' class='slick-next pull-right'><i class='fa fa-angle-right' aria-hidden='true'></i></button>"
+//     });
+// });
+
+
+function changeImage(e) {
+    let thisImageSrc = e.querySelector('img')
+    let ProductShowing = document.getElementById('ProductShowing')
+    const saveSrc = ProductShowing.src
+    ProductShowing.src = thisImageSrc.src
+    thisImageSrc.src = saveSrc
+
+    const boxImg = document.querySelectorAll('.box-sub-img .box-img')
+    for (let i = 0; i < boxImg.length; i++) {
+        boxImg[i].classList.remove('active')
+    }
+    e.classList.toggle('active')
+}
 </script>

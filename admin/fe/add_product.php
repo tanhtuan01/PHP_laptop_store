@@ -120,6 +120,14 @@ $type =  $db->findAll('t_type');
             </div>
         </div>
 
+        <div>
+            <label for="images">Hình ảnh:</label>
+            <input type="file" id="images" name="images[]" accept="image/*" multiple>
+            <div id="imagePreviewContainer"></div>
+            <div id="hiddenInputsContainer"></div>
+        </div>
+
+
         <input type="submit" name="submit" value="Thêm Sản Phẩm">
     </form>
 </div>
@@ -174,6 +182,53 @@ document.getElementById('image').addEventListener('change', function(event) {
         reader.readAsDataURL(file);
     } else {
         previewImage.src = '';
+    }
+});
+</script>
+
+<!-- Multiple Image -->
+<script>
+document.getElementById('images').addEventListener('change', function(event) {
+    const files = Array.from(event.target.files);
+    const previewContainer = document.getElementById('imagePreviewContainer');
+    const hiddenInputsContainer = document.getElementById('hiddenInputsContainer');
+
+    previewContainer.innerHTML = '';
+    hiddenInputsContainer.innerHTML = '';
+
+    files.forEach((file, index) => {
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            const div = document.createElement('div');
+            div.className = 'image-preview';
+
+            const img = document.createElement('img');
+            img.src = e.target.result;
+
+            const removeBtn = document.createElement('button');
+            removeBtn.innerText = '×';
+            removeBtn.className = 'remove-btn';
+
+            removeBtn.onclick = function() {
+                files.splice(index, 1);
+                div.remove();
+
+                updateFileInput(files);
+            };
+
+            div.appendChild(img);
+            div.appendChild(removeBtn);
+            previewContainer.appendChild(div);
+        };
+
+        reader.readAsDataURL(file);
+    });
+
+    function updateFileInput(updatedFiles) {
+        const dataTransfer = new DataTransfer();
+        updatedFiles.forEach(file => dataTransfer.items.add(file));
+        document.getElementById('images').files = dataTransfer.files;
     }
 });
 </script>
