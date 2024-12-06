@@ -21,10 +21,6 @@ $features = $db->findAll('t_features');
 $specialTechs = $db->findAll('t_special_tech');
 
 ?>
-<?php
-
-
-?>
 
 <!DOCTYPE html>
 <html lang="en">

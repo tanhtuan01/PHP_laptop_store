@@ -34,23 +34,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
+
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng Nhập</title>
+    <title>Laptop Store</title>
+    <link rel="icon" type="image/x-icon" href="<?php echo $config['BASE_URL'] .'/assets/images/iassets/logo.png'; ?>">
+    <?php require_once "views/lib.php"; ?>
+
     <style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f3f4f6;
-        margin: 0;
-        padding: 0;
+    .content {
+        text-align: center;
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
     }
 
     .login-container {
@@ -62,18 +62,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         max-width: 400px;
     }
 
-    h2 {
+    .login-container h2 {
         margin-bottom: 1.5rem;
         color: #333;
     }
 
-    label {
+    .login-container label {
         display: block;
         font-weight: bold;
         margin-bottom: 0.5rem;
     }
 
-    input {
+    .login-container input {
         width: 100%;
         padding: 0.8rem;
         margin-bottom: 1rem;
@@ -82,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         font-size: 1rem;
     }
 
-    button {
+    .login-container button {
         width: 100%;
         padding: 0.8rem;
         background-color: #4caf50;
@@ -94,49 +94,52 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         transition: background-color 0.3s;
     }
 
-    button:hover {
+    .login-container button:hover {
         background-color: #45a049;
     }
 
-    .error {
+    .login-container .error {
         color: red;
         margin-bottom: 1rem;
     }
 
-    p {
+    .login-container p {
         margin-top: 1rem;
         text-align: center;
-    }
-
-    a {
-        color: #4caf50;
-        text-decoration: none;
-        font-weight: bold;
-    }
-
-    a:hover {
-        text-decoration: underline;
     }
     </style>
 </head>
 
 <body>
-    <div class="login-container">
-        <h2>Đăng Nhập</h2>
-        <?php if (!empty($error)) : ?>
-        <div class="error"><?php echo $error; ?></div>
-        <?php endif; ?>
-        <form method="POST" action="">
-            <label for="username">Tên đăng nhập:</label>
-            <input type="text" id="username" name="username" required>
 
-            <label for="password">Mật khẩu:</label>
-            <input type="password" id="password" name="password" required>
+    <div class="home_page">
 
-            <button type="submit">Đăng Nhập</button>
-        </form>
-        <p>Chưa có tài khoản? <a href="register.php">Đăng ký</a></p>
+        <?php require_once "views/header.php"; ?>
+
+        <div class="content">
+            <div class="login-container">
+                <h2>Đăng Nhập</h2>
+                <?php if (!empty($error)) : ?>
+                <div class="error"><?php echo $error; ?></div>
+                <?php endif; ?>
+                <form method="POST" action="">
+                    <label for="username">Tên đăng nhập:</label>
+                    <input type="text" id="username" name="username" required>
+
+                    <label for="password">Mật khẩu:</label>
+                    <input type="password" id="password" name="password" required>
+
+                    <button type="submit">Đăng Nhập</button>
+                </form>
+                <p>Chưa có tài khoản? <a href="register.php">Đăng ký</a></p>
+            </div>
+
+        </div>
+
+        <?php require_once 'views/footer.php'; ?>
     </div>
+
+
 </body>
 
 </html>

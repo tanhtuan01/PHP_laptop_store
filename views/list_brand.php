@@ -1,4 +1,6 @@
-<div class="row">
+<?php 
+    $brands = $db->findAll('t_brand');
+?><div class="row">
     <div class="title-more">
         <h3 class="title-block">Danh mục Laptop</h3>
         <!-- <a class="btn btn-more">Xem nhiều hơn </a> -->

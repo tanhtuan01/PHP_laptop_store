@@ -2,7 +2,7 @@
 require_once 'db/base.php';
 
 session_start();
-
+$config = require_once 'config/config.php';
 $db = new Database();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -28,23 +28,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
+
+
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng Ký</title>
+    <title>Laptop Store</title>
+    <link rel="icon" type="image/x-icon" href="<?php echo $config['BASE_URL'] .'/assets/images/iassets/logo.png'; ?>">
+    <?php require_once "views/lib.php"; ?>
+
     <style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f3f4f6;
-        margin: 0;
-        padding: 0;
+    .content {
+        text-align: center;
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
     }
 
     .register-container {
@@ -56,18 +57,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         max-width: 400px;
     }
 
-    h2 {
+    .register-container h2 {
         margin-bottom: 1.5rem;
         color: #333;
     }
 
-    label {
+    .register-container label {
         display: block;
         font-weight: bold;
         margin-bottom: 0.5rem;
     }
 
-    input {
+    .register-container input {
         width: 100%;
         padding: 0.8rem;
         margin-bottom: 1rem;
@@ -76,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         font-size: 1rem;
     }
 
-    button {
+    .register-container button {
         width: 100%;
         padding: 0.8rem;
         background-color: #007bff;
@@ -88,69 +89,82 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         transition: background-color 0.3s;
     }
 
-    button:hover {
+    .register-container button:hover {
         background-color: #0056b3;
     }
 
-    .message {
+    .register-container .message {
         margin-bottom: 1rem;
         padding: 1rem;
         border-radius: 5px;
         text-align: center;
     }
 
-    .success {
+    .register-container .success {
         background-color: #d4edda;
         color: #155724;
         border: 1px solid #c3e6cb;
     }
 
-    .error {
+    .register-container .error {
         background-color: #f8d7da;
         color: #721c24;
         border: 1px solid #f5c6cb;
     }
 
-    p {
+    .register-container p {
         margin-top: 1rem;
         text-align: center;
     }
 
-    a {
+    .register-container a {
         color: #007bff;
         text-decoration: none;
         font-weight: bold;
     }
 
-    a:hover {
+    .register-container a:hover {
         text-decoration: underline;
     }
     </style>
 </head>
 
 <body>
-    <div class="register-container">
-        <h2>Đăng Ký</h2>
-        <?php if (!empty($success)) : ?>
-        <div class="message success"><?php echo $success; ?></div>
-        <?php endif; ?>
-        <?php if (!empty($error)) : ?>
-        <div class="message error"><?php echo $error; ?></div>
-        <?php endif; ?>
-        <form method="POST" action="#">
-            <label for="username">Tên đăng nhập:</label>
-            <input type="text" id="username" name="username" required>
 
-            <label for="phone">Số điện thoại:</label>
-            <input type="text" id="phone" name="phone" required>
+    <div class="home_page">
 
-            <label for="password">Mật khẩu:</label>
-            <input type="password" id="password" name="password" required>
+        <?php require_once "views/header.php"; ?>
 
-            <button type="submit">Đăng Ký</button>
-        </form>
-        <p>Đã có tài khoản? <a href="login.php">Đăng nhập</a></p>
+        <div class="content">
+            <div class="register-container">
+                <h2>Đăng Ký</h2>
+                <?php if (!empty($success)) : ?>
+                <div class="message success"><?php echo $success; ?></div>
+                <?php endif; ?>
+                <?php if (!empty($error)) : ?>
+                <div class="message error"><?php echo $error; ?></div>
+                <?php endif; ?>
+                <form method="POST" action="#">
+                    <label for="username">Tên đăng nhập:</label>
+                    <input type="text" id="username" name="username" required>
+
+                    <label for="phone">Số điện thoại:</label>
+                    <input type="text" id="phone" name="phone" required>
+
+                    <label for="password">Mật khẩu:</label>
+                    <input type="password" id="password" name="password" required>
+
+                    <button type="submit">Đăng Ký</button>
+                </form>
+                <p>Đã có tài khoản? <a href="login.php">Đăng nhập</a></p>
+            </div>
+
+        </div>
+
+        <?php require_once 'views/footer.php'; ?>
     </div>
+
+
 </body>
 
 </html>

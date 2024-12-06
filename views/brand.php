@@ -95,8 +95,7 @@ $products = $db->findAll('t_product', ['brandId' => $id]);
                     <?php } ?>
                     <div class="box">
                         <div class="image">
-                            <img src="<?php echo $config['BASE_URL'] . '/assets/images/products/' . $product['image']; ?>"
-                                alt="">
+                            <img src="<?php echo $config['PRODUCT_IMAGE'] . $product['image']; ?>" alt="">
                         </div>
                         <div class="gift">
                             <span>
