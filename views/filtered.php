@@ -24,12 +24,20 @@
 </div>
 <div class="products row">
     <?php if ($products): ?>
-    <?php $i = 1;
-        foreach ($products as $product): ?>
-    <a class="product" href="views/product.php?id=<?php echo $product['id']; ?>">
+    <?php  foreach ($products as $product): ?>
+    <a class="product" href="<?php echo $config['BASE_URL'] . '/views/product.php?id=' . $product['id'] ?>
+">
+        <?php if($product['isDiscount']) { ?>
+        <div class="tag-discount">
+            <div>
+                Giảm giá <br> <?php echo $product['percent']; ?>%
+            </div>
+        </div>
+        <?php } ?>
         <div class="box">
             <div class="image">
-                <img src="<?php echo $config['BASE_URL'] . '/assets/images/products/' . $product['image']; ?>" alt="">
+                <img src="https://cdn.tgdd.vn/Products/Images/44/311178/asus-vivobook-go-15-e1504fa-r5-nj776w-thumb-600x600.jpg"
+                    alt="">
             </div>
             <div class="gift">
                 <span>
@@ -39,21 +47,15 @@
             <h3 class="name">
                 <?php echo $product['name']; ?>
             </h3>
-            <div class="hardware">
-                <span class="tag">RAM<?php echo $product['ram']; ?>GB</span>
-                <span class="tag">SSD<?php echo $product['ssd']; ?>GB</span>
-            </div>
             <strong class="price">
-                <?php echo (number_format($product['price'], 0, ',', '.')) . "đ"; ?>
+                <?php echo (number_format($product['isDiscount'] ? $product['newPrice'] : $product['price'], 0, ',', '.')); ?>đ
             </strong>
-            <!-- <div class="box-p">
-                <p class="price-old">14.490.000₫</p>
-                <div class="percent">9%</div>
-            </div> -->
-            <!-- Đang phát triển -->
-            <!-- <p class="item-gift">
-                Quà <b>1.090.000₫</b>
-            </p> -->
+            <?php if($product['isDiscount']) { ?>
+            <div class="box-p">
+                <p class="price-old"> <?php echo (number_format($product['price'], 0, ',', '.')) . "đ"; ?></p>
+                <div class="percent"><b>-<?php echo $product['percent'] ?>%</b></div>
+            </div>
+            <?php } ?>
             <div class="add-to-cart">
                 <button title="Xem sản phẩm" class="view"><i class="fa-regular fa-eye"></i></i>&nbsp;</button>
                 <button title="Thêm vào giỏ hàng" class="addtocart"><i
@@ -61,8 +63,7 @@
             </div>
         </div>
     </a>
-    <?php $i++;
-        endforeach; ?>
+    <?php  endforeach; ?>
     <?php else: ?>
     <p>Không có sản phẩm nào</p>
     <?php endif; ?>
