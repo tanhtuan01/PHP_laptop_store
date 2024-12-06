@@ -166,3 +166,21 @@
 .view-product-button a.btn.add-to-wishlist{
     background-color: skyblue;
 }
+
+.features ul, .special-technologies ul {
+    list-style: none;
+}
+
+.features ul li, .special-technologies ul li{
+    padding: 5px 20px;
+    border: 1px solid silver;
+    border-radius: 5px;
+    width: fit-content;
+    margin: 5px 0;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.features ul li:hover, .special-technologies ul li:hover{
+    border-color: #555;
+}

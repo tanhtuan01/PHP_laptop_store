@@ -26,6 +26,12 @@
 
         <div class="right">
             <h2> <?php echo $product['name']; ?></h2>
+            <h3 style="color:red">
+
+                <?php echo $product['isDiscount']
+                ?  (number_format($product['newPrice'], 0, ',', '.'))
+                : (number_format($product['price'], 0, ',', '.')); ?>đ
+            </h3>
             <p>
                 CPU: <?php echo $product['cpu']; ?>
             </p>
@@ -41,21 +47,37 @@
             <p>
                 Màn hình: <?php echo $product['screen'] . "inch"; ?>
             </p>
-            <p>
 
-                <?php echo $product['isDiscount']
-                ?  (number_format($product['newPrice'], 0, ',', '.'))
-                : (number_format($product['price'], 0, ',', '.')); ?>đ
-            </p>
+            <div class="features">
+                <?php if ($specialTechnologies) { echo "<p class='title'>Tính năng:</p>";} ?>
+                <ul>
+                    <?php if ($productFeatures) {
+                        foreach ($productFeatures as $productFeature) { ?>
+                    <li><?php echo htmlspecialchars($productFeature['name']); ?></li>
+                    <?php }  }  ?>
+                </ul>
+            </div>
+
+            <div class="special-technologies">
+                <?php if ($specialTechnologies) { echo "<p class='title'>Công nghệ đặc biệt:</p>";} ?>
+
+                <ul>
+                    <?php if ($specialTechnologies) {
+                        foreach ($specialTechnologies as $technology) { ?>
+                    <li><?php echo htmlspecialchars($technology['name']); ?></li>
+                    <?php }  }  ?>
+                </ul>
+            </div>
+
             <div class="view-product-button">
                 <?php
-        if ($product['quantity'] > 0) {
-        ?>
+                    if ($product['quantity'] > 0) {
+                    ?>
                 <a class="btn add-to-cart" href='product.php?id=<?php echo $product['id']; ?>&action=add-to-cart'>
                     🛒 Thêm vào giỏ hàng</a>
                 <?php } else {
-            echo "Sản phẩm hiện đang hết";
-        } ?>
+                        echo "Sản phẩm hiện đang hết";
+                    } ?>
                 <a class="btn add-to-wishlist"
                     href='product.php?id=<?php echo $product['id']; ?>&action=add-to-wishlist'>🔖
                     Thêm vào yêu

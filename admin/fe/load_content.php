@@ -18,7 +18,9 @@ $allowed_pages = [
 	'roles.php',
 	'add_user.php',
 	'sliders.php',
-	'vouchers.php'
+	'vouchers.php',
+	'special_tech.php',
+	'features.php'
 ];
 
 if (in_array($page, $allowed_pages)) {

@@ -6,6 +6,10 @@ $db = new Database();
 $brands = $db->findAll('t_brand');
 
 $type =  $db->findAll('t_type');
+
+$features =  $db->findAll('t_features');
+
+$specialTechs =  $db->findAll('t_special_tech');
 ?>
 
 <div id="addProduct">
@@ -44,7 +48,7 @@ $type =  $db->findAll('t_type');
             </div>
         </div>
 
-        <label for="name">Tên Sản Phẩm:</label>
+        <label for="name">Tên sản phẩm:</label>
         <input type="text" id="name" name="name" required>
 
         <div class="specifications">
@@ -61,14 +65,14 @@ $type =  $db->findAll('t_type');
                 <input type="number" id="hdd" name="hdd" required>
             </div>
             <div class="spec-group">
-                <label for="weight">Trọng Lượng (kg):</label>
+                <label for="weight">Trọng lượng (kg):</label>
                 <input type="number" id="weight" name="weight" step="0.01" required>
             </div>
         </div>
 
         <div class="specifications">
             <div class="spec-group">
-                <label for="screen">Kích Thước Màn Hình (inch):</label>
+                <label for="screen">Kích thước màn hình (inch):</label>
                 <input type="number" id="screen" name="screen" step="0.1" required>
             </div>
             <div class="spec-group">
@@ -106,7 +110,6 @@ $type =  $db->findAll('t_type');
             <label for="isDiscount">Giảm Giá</label>
         </div>
 
-        <!-- Inputs for discount and new price, hidden initially -->
         <div id="discountFields" style="display: none;">
             <div style="display: flex;justify-content:center">
                 <div style="margin-right:10px">
@@ -120,8 +123,39 @@ $type =  $db->findAll('t_type');
             </div>
         </div>
 
+        <div class="specifications">
+            <label for="features">Tính năng</label>
+            <div id="features" class="features-checkbox-group">
+                <?php 
+                if($features){
+                    foreach($features as $feature){ 
+                ?>
+                <label>
+                    <input type="checkbox" name="features[]" value="<?php echo $feature['id']; ?>">
+                    <?php echo $feature['name']; ?>
+                </label>
+                <?php  }} ?>
+            </div>
+        </div>
+
+        <div class="specifications">
+            <label for="specialTechnologies">Công nghệ đặc biệt</label>
+            <div id="specialTechnologies" class="features-checkbox-group">
+                <?php 
+                if($specialTechs){
+                    foreach($specialTechs as $specialTech){ 
+                ?>
+                <label>
+                    <input type="checkbox" name="specialTechnologies[]" value="<?php echo $specialTech['id']; ?>">
+                    <?php echo $specialTech['name']; ?>
+                </label>
+                <?php  }} ?>
+            </div>
+        </div>
+
+
         <div>
-            <label for="images">Hình ảnh:</label>
+            <label for="images">Một số hình ảnh khác (Nếu có):</label>
             <input type="file" id="images" name="images[]" accept="image/*" multiple>
             <div id="imagePreviewContainer"></div>
             <div id="hiddenInputsContainer"></div>

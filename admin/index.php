@@ -65,9 +65,11 @@ if(!$isAdmin){
             <li class="disable-item">Thống kê</li>
             <li class="menu-item" data-page="revenue">Doanh thu</li>
             <li class="menu-item" data-page="statistic">Biểu đồ thống kê</li>
-            <li class="disable-item">Hãng & Loại</li>
+            <li class="disable-item">Hãng & Loại, Khác</li>
             <li class="menu-item" data-page="brand">Thêm Hãng Laptop</li>
             <li class="menu-item" data-page="type">Thêm Loại Laptop</li>
+            <li class="menu-item" data-page="features">Tính năng</li>
+            <li class="menu-item" data-page="special_tech">Công nghệ đặc biệt</li>
             <li class="disable-item">SẢN PHẨM</li>
             <li class="menu-item" data-page="add_product">Thêm Sản Phẩm</li>
             <li class="menu-item" data-page="list_product">Danh Sách Sản Phẩm</li>

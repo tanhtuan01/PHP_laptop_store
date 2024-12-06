@@ -5,8 +5,10 @@ session_start();
 $config = require_once (dirname(__DIR__)) . '/config/config.php';
 
 require_once (dirname(__DIR__)) . '/db/base.php';
+require_once (dirname(__DIR__)) . '/db/product.php';
 
 $db = new Database();
+$productDb = new Product();
 
 if (!isset($_GET['id']) || !$_GET['id']) {
     header("Location: ../index.php");
@@ -15,6 +17,11 @@ if (!isset($_GET['id']) || !$_GET['id']) {
 $id = $_GET['id'];
 
 $product = $db->getOne('t_product', $id);
+
+$productFeatures = $productDb->getProductFeatures($id);
+
+$specialTechnologies = $productDb->getProductSpecialTechs($id);
+
 if (isset($_SESSION['user'])) {
 
     // Check exists user cart

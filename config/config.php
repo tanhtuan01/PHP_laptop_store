@@ -9,10 +9,14 @@ $config = [
     'EMAIL' => 'Email Address',
     'ADDRESS' => 'Shop Address',
     'HOTLINE' => 'Hotline',
-    'PRODUCT_IMAGE_FOLDER' => '/assets/images/products/'
+    'PRODUCT_IMAGE_FOLDER' => '/assets/images/products/',
+    'BRAND_IMAGE_FOLDER' => '/assets/images/brands/',
+    'INDEX_PRODUCT_DISCOUNT_NUMBER' => 10,
+    'INDEX_PRODUCT_NUMBER' => 10,
 ];
 
 $config['BASE_URL'] = $config['HOST'] . $config['ROOT_FOLDER'];
 $config['PRODUCT_IMAGE'] = $config['BASE_URL'] . $config['PRODUCT_IMAGE_FOLDER'];
+$config['BRAND_IMAGE'] =  $config['BASE_URL'] . $config['BRAND_IMAGE_FOLDER'];
 
 return $config;

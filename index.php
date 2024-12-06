@@ -4,13 +4,28 @@ session_start();
 
 require_once 'db/base.php';
 
+require_once 'db/product.php';
+
 $config = require 'config/config.php';
 
 $db = new Database();
 
+$productDb = new Product();
+
+$types = $db->findAll('t_type');
+
+$brands = $db->findAll('t_brand');
+
+$features = $db->findAll('t_features');
+
+$specialTechs = $db->findAll('t_special_tech');
+
+?>
+<?php
 
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,6 +52,13 @@ $db = new Database();
 
             <?php require_once 'views/discounting_product.php'; ?>
 
+            <?php 
+                if ($_SERVER["REQUEST_METHOD"] === "POST") {
+                    require_once 'views/filtered.php';
+                }else{
+                    require_once 'views/list_product.php';
+                }
+            ?>
             <!-- <div class="filter">
 
                 <div class="row">
@@ -72,7 +94,6 @@ $db = new Database();
 
             </div> -->
 
-            <?php require_once 'views/list_product.php'; ?>
 
         </div>
 

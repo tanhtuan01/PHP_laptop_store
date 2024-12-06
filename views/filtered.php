@@ -1,26 +1,32 @@
-<?php
+<?php 
 
-$products = $db->findAll('t_product', ['isDiscount' => true], 'id', 'DESC', $config['INDEX_PRODUCT_DISCOUNT_NUMBER']);
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        $brand = $_POST['brand'] ?? null;
+        $price = $_POST['price'] ?? null;
+        $type = $_POST['type'] ?? null;
+        $screen = $_POST['screen'] ?? null;
+        $features = isset($_POST['features']) ? explode(",", $_POST['features']) : [];
+        $specialTech = isset($_POST['specialTech']) ? explode(",", $_POST['specialTech']) : [];
+        $ram = $_POST['ram'] ?? null;
+
+        $products = $productDb->filterProducts($brand, $price, $type, $screen, $features, $specialTech, $ram);
+    
+    }
 
 ?>
 
 <div class="row">
     <div class="title-more">
-        <h3 class="title-block">Đang giảm giá</h3>
-        <a class="btn btn-more" href="views/discounting.php">Xem nhiều hơn</a>
+        <h3 class="title-block">Sản phẩm lọc</h3>
+        <a class="btn btn-more" href='<?php echo $config['BASE_URL']; ?>'><i
+                class="fa-solid fa-filter-circle-xmark"></i>Xóa bộ lọc</a>
     </div>
 </div>
-
 <div class="products row">
     <?php if ($products): ?>
-    <?php 
+    <?php $i = 1;
         foreach ($products as $product): ?>
     <a class="product" href="views/product.php?id=<?php echo $product['id']; ?>">
-        <div class="tag-discount">
-            <div>
-                Giảm giá <br> <?php echo $product['percent']; ?>%
-            </div>
-        </div>
         <div class="box">
             <div class="image">
                 <img src="<?php echo $config['BASE_URL'] . '/assets/images/products/' . $product['image']; ?>" alt="">
@@ -38,12 +44,12 @@ $products = $db->findAll('t_product', ['isDiscount' => true], 'id', 'DESC', $con
                 <span class="tag">SSD<?php echo $product['ssd']; ?>GB</span>
             </div>
             <strong class="price">
-                <?php echo (number_format($product['newPrice'], 0, ',', '.')) . "đ"; ?>
+                <?php echo (number_format($product['price'], 0, ',', '.')) . "đ"; ?>
             </strong>
-            <div class="box-p">
-                <p class="price-old"> <?php echo (number_format($product['price'], 0, ',', '.')) . "đ"; ?></p>
-                <div class="percent"><b>-<?php echo $product['percent'] ?>%</b></div>
-            </div>
+            <!-- <div class="box-p">
+                <p class="price-old">14.490.000₫</p>
+                <div class="percent">9%</div>
+            </div> -->
             <!-- Đang phát triển -->
             <!-- <p class="item-gift">
                 Quà <b>1.090.000₫</b>
@@ -55,7 +61,7 @@ $products = $db->findAll('t_product', ['isDiscount' => true], 'id', 'DESC', $con
             </div>
         </div>
     </a>
-    <?php 
+    <?php $i++;
         endforeach; ?>
     <?php else: ?>
     <p>Không có sản phẩm nào</p>

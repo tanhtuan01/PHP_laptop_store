@@ -28,6 +28,10 @@ if ($_POST && isset($_POST['submit'])) {
     $percent = isset($_POST['discountPercent']) ? $_POST['discountPercent'] : 0;
     $newPrice = isset($_POST['newPrice']) ? $_POST['newPrice'] : 0;
 
+    $features = isset($_POST['features']) ? $_POST['features'] : []; 
+
+    $specialTechnologies = isset($_POST['specialTechnologies']) ? $_POST['specialTechnologies'] : []; 
+
     $image = $_FILES['image'];
     $fileName = $_FILES['image']['name'];
     $fileTmp = $_FILES['image']['tmp_name'];
@@ -75,6 +79,18 @@ if ($_POST && isset($_POST['submit'])) {
                     $db->insert('t_product_image', ['image' => $newFileNames , 'productId' => $insertedId]);
                     move_uploaded_file($tmpName, $filesPath);
                 }
+            }
+        }
+
+        if($features){
+            foreach ($features as $feature) {
+                $db->insert('t_product_feature', ['productId' => $insertedId, 'featureId' => $feature]);
+            }
+        }
+
+        if($specialTechnologies){
+            foreach ($specialTechnologies as $specialTech) {
+                $db->insert('t_product_special_tech', ['productId' => $insertedId, 'specialtechId' => $specialTech]);
             }
         }
 
