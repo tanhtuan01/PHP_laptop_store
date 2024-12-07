@@ -179,8 +179,9 @@ $isAdmin = !empty(array_filter($_SESSION['user']['role'], function ($role) {
                     </tr>
                     <tr>
                         <th>Email</th>
-                        <td><input placeholder="Email" required name="email"
-                                value=" <?php echo $user['email'] ?? ''; ?>">
+                        <td><input pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                                title="Vui lòng nhập email hợp lệ (ví dụ: example@domain.com)" placeholder="Email"
+                                required name="email" value=" <?php echo $user['email'] ?? ''; ?>">
                         </td>
                     </tr>
                 </table>
