@@ -26,6 +26,8 @@ if ($_POST && isset($_POST['submit'])) {
     $description = $_POST['description'];
     $info = $_POST['info'];
     $isDiscount = isset($_POST['isDiscount']) ? true : false;
+    $percent = isset($_POST['discountPercent']) ? $_POST['discountPercent'] : 0;
+    $newPrice = isset($_POST['newPrice']) ? $_POST['newPrice'] : 0;
 
     $FILE = $_FILES['image'];
     $fileName = $_FILES['image']['name'];	
@@ -51,6 +53,8 @@ if ($_POST && isset($_POST['submit'])) {
         'isDiscount' => $isDiscount,
         'brandId' => $_POST['brand'],
         'typeId' => $_POST['type'],
+        'percent' => $percent,
+        'newPrice' => $newPrice,
     ];
 
 	if($_FILES['image']['name']){

@@ -18,5 +18,6 @@ $config = [
 $config['BASE_URL'] = $config['HOST'] . $config['ROOT_FOLDER'];
 $config['PRODUCT_IMAGE'] = $config['BASE_URL'] . $config['PRODUCT_IMAGE_FOLDER'];
 $config['BRAND_IMAGE'] =  $config['BASE_URL'] . $config['BRAND_IMAGE_FOLDER'];
+$config['JS'] = $config['BASE_URL'] .'/assets/js/';
 
 return $config;

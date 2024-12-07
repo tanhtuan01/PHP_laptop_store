@@ -2,8 +2,9 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
-<script type="text/javascript" src="<?php echo $config['BASE_URL'] .'/assets/js/main.js'; ?>"></script>
-<script type="text/javascript" src="<?php echo $config['BASE_URL'] .'/assets/js/filter.js'; ?>"></script>
+<script type="text/javascript" src="<?php echo $config['JS'] .'main.js'; ?>"></script>
+<script type="text/javascript" src="<?php echo $config['JS'] .'filter.js'; ?>"></script>
+<script type="text/javascript" src="<?php echo $config['JS'] .'validate.js'; ?>"></script>
 
 <!-- Slick slider -->
 <script>

@@ -77,7 +77,6 @@ if(!$isAdmin){
             <li class="menu-item" data-page="orders">Đơn Hàng</li>
             <li class="disable-item">Người dùng & quyền</li>
             <li class="menu-item" data-page="roles">Quyền người dùng</li>
-            <li class="menu-item" data-page="add_user">Thêm người dùng</li>
             <li class="menu-item" data-page="users">Quản lý</li>
             <li class="disable-item">Khác</li>
             <li class="menu-item" data-page="sliders">Slide & chương trình</li>
@@ -98,7 +97,8 @@ if(!$isAdmin){
         <div id="FRAGMENT"></div>
     </div>
 
-    <script src="../assets/js/main.js"></script>
+    <?php require_once dirname(__DIR__) .'/views/scripts.php';  ?>
+
 </body>
 
 </html>

@@ -52,21 +52,21 @@ $orderDetails = $orderDb->findOrderDetailsByOrderId($id);
             </thead>
             <tbody>
                 <?php if ($orderDetails) { ?>
-                    <?php $i = 1;
+                <?php $i = 1;
                     foreach ($orderDetails as $orderDetail): ?>
-                        <tr>
-                            <td><?php echo $i; ?></td>
-                            <td><?php echo htmlspecialchars($orderDetail['productName']); ?></td>
-                            <td><?php echo $orderDetail['quantity']; ?></td>
-                            <td><?php echo number_format($orderDetail['price'], 0, ',', '.'); ?> VNĐ</td>
-                            <td><?php echo number_format($orderDetail['totalPrice'], 0, ',', '.'); ?> VNĐ</td>
-                        </tr>
-                    <?php $i++;
+                <tr>
+                    <td><?php echo $i; ?></td>
+                    <td><?php echo htmlspecialchars($orderDetail['productName']); ?></td>
+                    <td><?php echo $orderDetail['quantity']; ?></td>
+                    <td><?php echo number_format($orderDetail['price'], 0, ',', '.'); ?> VNĐ</td>
+                    <td><?php echo number_format($orderDetail['totalPrice'], 0, ',', '.'); ?> VNĐ</td>
+                </tr>
+                <?php $i++;
                     endforeach; ?>
                 <?php } else { ?>
-                    <tr>
-                        <td colspan="5">Không có chi tiết đơn hàng</td>
-                    </tr>
+                <tr>
+                    <td colspan="5">Không có chi tiết đơn hàng</td>
+                </tr>
                 <?php } ?>
             </tbody>
         </table>
@@ -76,14 +76,19 @@ $orderDetails = $orderDb->findOrderDetailsByOrderId($id);
                 sách đơn hàng</a>
 
             <div>
-                <?php if ($order['status'] != 'processing' && $order['status'] != 'completed') { ?>
-                    <a href="be/order.php?orderId=<?php echo $id; ?>&action=processing" class="btn btn-primary">Xác nhận đơn
-                        hàng</a>
+                <?php if ($order['status'] != 'processing' && $order['status'] != 'completed' && $order['status'] != 'cancelled') { ?>
+                <a style="background:red;color:white;border:none"
+                    href="be/order.php?orderId=<?php echo $id; ?>&action=cancelled" class="btn btn-primary">Hủy đơn
+                    hàng</a>
+                <a href=" be/order.php?orderId=<?php echo $id; ?>&action=processing" class="btn btn-primary">Xác
+                    nhận đơn
+                    hàng</a>
+
                 <?php } ?>
 
                 <?php if ($order['status'] == 'processing') { ?>
-                    <a href="be/order.php?orderId=<?php echo $id; ?>&action=completed" class="btn btn-success">Hoàn thành
-                        đơn hàng</a>
+                <a href="be/order.php?orderId=<?php echo $id; ?>&action=completed" class="btn btn-success">Hoàn thành
+                    đơn hàng</a>
                 <?php } ?>
             </div>
         </div>

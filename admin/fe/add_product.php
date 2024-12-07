@@ -54,26 +54,27 @@ $specialTechs =  $db->findAll('t_special_tech');
         <div class="specifications">
             <div class="spec-group">
                 <label for="ram">RAM (GB):</label>
-                <input type="number" id="ram" name="ram" required>
+                <input type="number" id="ram" name="ram" required onkeydown="inputOnlyNumber(event)">
             </div>
             <div class="spec-group">
-                <label for="ssd">SSD (GB):</label>
-                <input type="number" id="ssd" name="ssd" required>
+                <label for="ssd">SSD:</label>
+                <input type="text" id="ssd" name="ssd" required placeholder="GB, TB">
             </div>
             <div class="spec-group">
-                <label for="hdd">HDD (GB):</label>
-                <input type="number" id="hdd" name="hdd" required>
+                <label for="hdd">HDD:</label>
+                <input type="text" id="hdd" name="hdd" required placeholder="GB, TB">
             </div>
             <div class="spec-group">
                 <label for="weight">Trọng lượng (kg):</label>
-                <input type="number" id="weight" name="weight" step="0.01" required>
+                <input type="number" id="weight" name="weight" step="0.01" required
+                    onkeydown="inputDotAndNumber(event)">
             </div>
         </div>
 
         <div class="specifications">
             <div class="spec-group">
                 <label for="screen">Kích thước màn hình (inch):</label>
-                <input type="number" id="screen" name="screen" step="0.1" required>
+                <input type="number" id="screen" name="screen" step="0.1" required onkeydown="inputDotAndNumber(event)">
             </div>
             <div class="spec-group">
                 <label for="cpu">CPU:</label>
@@ -84,11 +85,11 @@ $specialTechs =  $db->findAll('t_special_tech');
         <div class="specifications">
             <div class="spec-group">
                 <label for="quantity">Số lượng:</label>
-                <input type="number" id="quantity" name="quantity" required>
+                <input type="number" id="quantity" name="quantity" required onkeydown="inputOnlyNumber(event)">
             </div>
             <div class="spec-group">
                 <label for="price">Giá:</label>
-                <input type="number" id="price" name="price" required>
+                <input type="number" id="price" name="price" required onkeydown="inputOnlyNumber(event)">
             </div>
         </div>
 
@@ -106,7 +107,7 @@ $specialTechs =  $db->findAll('t_special_tech');
         <textarea id="info" name="info" rows="4"></textarea>
 
         <div class="discount-checkbox">
-            <input type="checkbox" id="isDiscount" name="isDiscount">
+            <input type="checkbox" id="isDiscount" name="isDiscount" onkeydown="inputOnlyNumber(event)">
             <label for="isDiscount">Giảm Giá</label>
         </div>
 
@@ -114,7 +115,8 @@ $specialTechs =  $db->findAll('t_special_tech');
             <div style="display: flex;justify-content:center">
                 <div style="margin-right:10px">
                     <label for="discountPercent">Tỷ Lệ Giảm Giá (%)</label>
-                    <input type="number" id="discountPercent" name="discountPercent" step="1" min="0" max="100">
+                    <input type="number" id="discountPercent" name="discountPercent" step="1" min="0" max="100"
+                        onkeydown="inputOnlyNumber(event)">
                 </div>
                 <div>
                     <label for="newPrice">Giá Sau Giảm Giá</label>

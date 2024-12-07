@@ -13,8 +13,8 @@ $orderDb = new Order();
 $order = $db->getOne('t_orders', $id);
 
 if ($db->update('t_orders', ['status' => $action], ['id' => $id])) {
+    $db->insert('t_revenue', ['orderId' => $id, 'price' => $order['totalAmount']]);
     if ($action == 'completed') {
-        $db->insert('t_revenue', ['orderId' => $id, 'price' => $order['totalAmount']]);
         $orderDb->updateToProductSoldQuantity($id);
     }
     header("Location: ../index.php?page=orders&type=success&message=Đã xác nhận đơn hàng");

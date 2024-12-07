@@ -1,118 +1,118 @@
 <style>
-    /* Container */
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 30px;
-        font-family: 'Arial', sans-serif;
-    }
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px;
+    font-family: 'Arial', sans-serif;
+}
 
-    /* Heading */
-    .heading {
-        text-align: center;
-        margin-bottom: 40px;
-        font-size: 28px;
-        font-weight: 600;
-        color: #333;
-    }
+/* Heading */
+.heading {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 28px;
+    font-weight: 600;
+    color: #333;
+}
 
-    /* Form */
-    .add-user form {
-        margin-bottom: 40px;
-        padding: 20px;
-        background-color: #f9f9f9;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
+/* Form */
+.add-user form {
+    margin-bottom: 40px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
-    .add-user label {
-        font-size: 16px;
-        margin-right: 10px;
-        color: #555;
-    }
+.add-user label {
+    font-size: 16px;
+    margin-right: 10px;
+    color: #555;
+}
 
-    .add-user input,
-    .add-user select {
-        padding: 10px;
-        margin-bottom: 15px;
-        width: 100%;
-        max-width: 400px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        font-size: 16px;
-        color: #333;
-    }
+.add-user input,
+.add-user select {
+    padding: 10px;
+    margin-bottom: 15px;
+    width: 100%;
+    max-width: 400px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #333;
+}
 
-    .add-user button {
-        padding: 10px 15px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 16px;
-        width: 200px;
-        margin-top: 15px;
-    }
+.add-user button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 200px;
+    margin-top: 15px;
+}
 
-    .add-user button:hover {
-        background-color: #0056b3;
-    }
+.add-user button:hover {
+    background-color: #0056b3;
+}
 
-    /* Table */
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-    }
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
 
-    th,
-    td {
-        padding: 15px;
-        border: 1px solid #ddd;
-        text-align: center;
-        font-size: 16px;
-    }
+th,
+td {
+    padding: 15px;
+    border: 1px solid #ddd;
+    text-align: center;
+    font-size: 16px;
+}
 
-    th {
-        background-color: #f4f4f4;
-        font-weight: 600;
-        color: #333;
-    }
+th {
+    background-color: #f4f4f4;
+    font-weight: 600;
+    color: #333;
+}
 
-    tr:nth-child(even) {
-        background-color: #f9f9f9;
-    }
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
 
-    tr:hover {
-        background-color: #e9e9e9;
-    }
+tr:hover {
+    background-color: #e9e9e9;
+}
 
-    /* Buttons */
-    .btn {
-        padding: 8px 12px;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 14px;
-    }
+/* Buttons */
+.btn {
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
 
-    .btn-primary {
-        background-color: #007bff;
-        color: white;
-    }
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
 
-    .btn-primary:hover {
-        background-color: #0056b3;
-    }
+.btn-primary:hover {
+    background-color: #0056b3;
+}
 
-    .btn-danger {
-        background-color: #dc3545;
-        color: white;
-    }
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
 
-    .btn-danger:hover {
-        background-color: #c82333;
-    }
+.btn-danger:hover {
+    background-color: #c82333;
+}
 </style>
 
 <div class="container">
@@ -155,8 +155,8 @@
                     <option value="viewer">Viewer</option>
                 </select>
             </div>
-
-            <button type="submit" class="btn btn-primary">Thêm Người Dùng</button>
+            <pre>Disable</pre>
+            <button type="button" class="btn btn-primary">Thêm Người Dùng</button>
         </form>
     </div>
 

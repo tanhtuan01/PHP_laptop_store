@@ -53,20 +53,23 @@ $product = $db->getOne('t_product', $id);
         <div class="specifications">
             <div class="spec-group">
                 <label for="ram">RAM (GB):</label>
-                <input type="number" id="ram" name="ram" require_onced value="<?php echo $product['ram']; ?>">
+                <input type="number" id="ram" name="ram" onkeydown="inputOnlyNumber(event)" require_onced
+                    value="<?php echo $product['ram']; ?>">
             </div>
             <div class="spec-group">
-                <label for="ssd">SSD (GB):</label>
-                <input type="number" id="ssd" name="ssd" require_onced value="<?php echo $product['ssd']; ?>">
+                <label for="ssd">SSD:</label>
+                <input type="text" id="ssd" name="ssd" placeholder="GB, TB" require_onced
+                    value="<?php echo $product['ssd']; ?>">
             </div>
             <div class="spec-group">
-                <label for="hdd">HDD (GB):</label>
-                <input type="number" id="hdd" name="hdd" require_onced value="<?php echo $product['hdd']; ?>">
+                <label for="hdd">HDD:</label>
+                <input type="text" id="hdd" name="hdd" placeholder="GB, TB" require_onced
+                    value="<?php echo $product['hdd']; ?>">
             </div>
             <div class="spec-group">
                 <label for="weight">Trọng Lượng (kg):</label>
                 <input type="number" id="weight" name="weight" step="0.01" require_onced
-                    value="<?php echo $product['weight']; ?>">
+                    value="<?php echo $product['weight']; ?>" onkeydown="inputDotAndNumber(event)">
             </div>
         </div>
 
@@ -74,7 +77,7 @@ $product = $db->getOne('t_product', $id);
             <div class="spec-group">
                 <label for="screen">Kích Thước Màn Hình (inch):</label>
                 <input type="number" id="screen" name="screen" step="0.1" require_onced
-                    value="<?php echo $product['screen']; ?>">
+                    value="<?php echo $product['screen']; ?>" onkeydown="inputDotAndNumber(event)">
             </div>
             <div class="spec-group">
                 <label for="cpu">CPU:</label>
@@ -86,15 +89,16 @@ $product = $db->getOne('t_product', $id);
             <div class="spec-group">
                 <label for="quantity">Số lượng:</label>
                 <input type="number" id="quantity" name="quantity" require_onced
-                    value="<?php echo $product['quantity']; ?>">
+                    value="<?php echo $product['quantity']; ?>" onkeydown="inputOnlyNumber(event)">
             </div>
             <div class="spec-group">
                 <label for="price">Giá:</label>
-                <input type="number" id="price" name="price" require_onced value="<?php echo $product['price']; ?>">
+                <input type="number" id="price" name="price" onkeydown="inputOnlyNumber(event)" require_onced
+                    value="<?php echo $product['price']; ?>">
             </div>
         </div>
 
-        <label for="image">Hình Ảnh (bỏ qua nếu không cập nhật ảnh):</label>
+        <label for="image">Hình Ảnh</label>
         <input type="file" id="image" name="image" accept="image/*">
 
         <label for="description">Mô Tả:</label>
@@ -104,11 +108,76 @@ $product = $db->getOne('t_product', $id);
         <label for="info">Thông Tin Khác:</label>
         <textarea id="info" name="info" rows="4"><?php echo $product['info']; ?></textarea>
 
-        <div class="discount-checkbox">
-            <input type="checkbox" id="isDiscount" name="isDiscount" value="<?php echo $product['isDiscount']; ?>">
+        <!-- <div class="discount-checkbox">
+            <input type="checkbox" id="isDiscount" name="isDiscount"
+                value="<?php echo $product['isDiscount'] ? 'checked' : ''; ?>">
             <label for="isDiscount">Sản Phẩm Giảm Giá</label>
+        </div> -->
+
+        <div class="discount-checkbox">
+            <input type="checkbox" id="isDiscount" name="isDiscount" value="1"
+                <?php echo (!empty($product['isDiscount']) && $product['isDiscount'] == "1") ? 'checked' : ''; ?>>
+            <label for="isDiscount">Sản Phẩm Giảm Giá</label>
+        </div>
+
+
+        <div id="discountFields" style="display: none;">
+            <div style="display: flex;justify-content:center">
+                <div style="margin-right:10px">
+                    <label for="discountPercent">Tỷ Lệ Giảm Giá (%)</label>
+                    <input type="number" id="discountPercent" name="discountPercent" step="1" min="0" max="100"
+                        onkeydown="inputOnlyNumber(event)" value="<?php echo $product['percent']; ?>">
+                </div>
+                <div>
+                    <label for="newPrice">Giá Sau Giảm Giá</label>
+                    <input type="number" id="newPrice" name="newPrice" readonly
+                        value="<?php echo $product['newPrice']; ?>">
+                </div>
+            </div>
         </div>
 
         <input type="submit" name="submit" value="Cập nhật Sản Phẩm">
     </form>
 </div>
+
+<script>
+let isDiscount = document.getElementById('isDiscount').checked
+
+if (isDiscount) {
+    discountFields.style.display = 'block';
+    calculateDiscountedPrice();
+}
+
+document.getElementById('isDiscount').addEventListener('change', function() {
+    var discountFields = document.getElementById('discountFields');
+    if (this.checked) {
+        discountFields.style.display = 'block';
+        calculateDiscountedPrice();
+    } else {
+        discountFields.style.display = 'none';
+        document.getElementById('discountPercent').value = '';
+        document.getElementById('newPrice').value = '';
+    }
+});
+
+document.getElementById('discountPercent').addEventListener('input', function() {
+    calculateDiscountedPrice();
+});
+
+document.getElementById('price').addEventListener('input', function() {
+    calculateDiscountedPrice();
+})
+
+function calculateDiscountedPrice() {
+    var price = parseFloat(document.getElementById('price').value) || 0;
+    var discountPercent = parseFloat(document.getElementById('discountPercent').value) || 0;
+    var newPriceField = document.getElementById('newPrice');
+
+    if (price > 0 && discountPercent > 0) {
+        var newPrice = price * (1 - discountPercent / 100);
+        newPriceField.value = Math.round(newPrice.toFixed(2))
+    } else {
+        newPriceField.value = Math.round(newPrice.toFixed(2))
+    }
+}
+</script>

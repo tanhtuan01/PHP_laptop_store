@@ -36,16 +36,16 @@
                 CPU: <?php echo $product['cpu']; ?>
             </p>
             <p>
-                RAM: <?php echo $product['ram'] . "GB"; ?>
+                RAM: <?php echo $product['ram'] . " GB"; ?>
             </p>
             <p>
-                SSD: <?php echo $product['ssd'] . "GB"; ?>
+                SSD: <?php echo $product['ssd'] ; ?>
             </p>
             <p>
-                Nặng: <?php echo $product['weight'] . "kg"; ?>
+                Nặng: <?php echo $product['weight'] . " kg"; ?>
             </p>
             <p>
-                Màn hình: <?php echo $product['screen'] . "inch"; ?>
+                Màn hình: <?php echo $product['screen'] . " inch"; ?>
             </p>
 
             <div class="features">
