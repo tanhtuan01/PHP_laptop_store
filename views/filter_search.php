@@ -1,5 +1,12 @@
 <div class="product-filter">
     <button onclick="openFilterModal()"><i class="fa-solid fa-filter"></i>Lọc</button>
+    <?php if($_SERVER["REQUEST_METHOD"] === "POST"){
+?>
+    <button
+        onclick="window.location.href = window.location.origin + window.location.pathname.split('/').slice(0, -1).join('/') + '/';"
+        class="reset" onclick="" title="Xóa bộ lọc"><i class="fa-solid fa-filter-circle-xmark"></i></button>
+
+    <?php } ?>
 </div>
 
 <div class="row">
@@ -111,7 +118,8 @@
 </div>
 
 <!-- Form ẩn -->
-<form id="filter-form" action="" method="POST" style="display: none;">
+<form id="filter-form" action="<?php echo $config['BASE_URL'] . '/index.php#filtered'?>" method="POST"
+    style="display: none;">
     <input type="hidden" name="brand" id="form-brand">
     <input type="hidden" name="price" id="form-price">
     <input type="hidden" name="type" id="form-type">

@@ -14,8 +14,8 @@ $specialsTech = $db->findAll('t_special_tech',[],'id','DESC');
         </div>
         <div class="spec-group">
             <label for="desc">Mô tả:</label>
-            <textarea style="width: 100%" type="text" id="desc" name="desc" placeholder="Nhập tên loại công nghệ"
-                rows="3"></textarea>
+            <textarea style="width: 100%;padding: 5px;resize:none;border-radius:5px" type="text" id="desc" name="desc"
+                placeholder="Nhập mô tả loại công nghệ" rows="3"></textarea>
         </div>
         <br>
         <div>

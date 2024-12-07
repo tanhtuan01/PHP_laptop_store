@@ -143,10 +143,21 @@
     transition: all .3s linear;
 }
 
+.product-filter button.reset{
+    border-color: red;
+    color:red;
+}
+
 .product-filter button:hover{
     background-color: #1a78e4;
     color: white;
 }
+
+.product-filter button.reset:hover{
+     background-color: red;
+    color: white;
+}
+
 
 .product-filter button:hover i{
     color: white;
@@ -159,6 +170,14 @@
     margin: 0 5px 0 0;
     color: #2a83e9;
     transition: all .3s linear;
+}
+
+.product-filter button.reset i{
+    color: red;
+}
+
+.product-filter button.reset:hover i{
+    color: white;
 }
 
 .btn-apply{

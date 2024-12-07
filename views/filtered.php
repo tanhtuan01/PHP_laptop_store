@@ -15,7 +15,7 @@
 
 ?>
 
-<div class="row">
+<div class="row" id="filtered">
     <div class="title-more">
         <h3 class="title-block">Sản phẩm lọc</h3>
         <a class="btn btn-more" href='<?php echo $config['BASE_URL']; ?>'><i

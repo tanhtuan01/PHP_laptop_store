@@ -14,8 +14,8 @@ $features = $db->findAll('t_features',[],'id','DESC');
         </div>
         <div class="spec-group">
             <label for="desc">Mô tả:</label>
-            <textarea required style="width: 100%;padding: 5px" type="text" id="desc" name="desc"
-                placeholder="Nhập mô tả tính năng" rows="3"></textarea>
+            <textarea required style="width: 100%;padding: 5px;resize:none;border-radius:5px" type="text" id="desc"
+                name="desc" placeholder="Nhập mô tả tính năng" rows="3"></textarea>
         </div>
         <br>
         <div>
