@@ -14,7 +14,7 @@ if (!isset($_GET['id']) || !$_GET['id']) {
 
 $id = $_GET['id'];
 
-$brand = $db->getOne('t_brand', $id);
+$brandById = $db->getOne('t_brand', $id);
 
 $products = $db->findAll('t_product', ['brandId' => $id]);
 
@@ -41,7 +41,7 @@ $products = $db->findAll('t_product', ['brandId' => $id]);
             <?php require_once "list_brand.php"; ?>
             <br>
             <div class="row">
-                <h3>Danh sách laptop của "<?php echo $brand['name']; ?>"</h3>
+                <h3>Danh sách laptop của "<?php echo $brandById['name']; ?>"</h3>
             </div>
 
 
